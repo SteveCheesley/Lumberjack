@@ -1,5 +1,5 @@
 # Logger++
-
+Idea for a name "Lumberjack" as in someone who is a logger!
 
 
 ## Getting started
