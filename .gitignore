@@ -1,0 +1,48 @@
+# C++ object and binary files
+*.o
+*.obj
+*.lo
+*.a
+*.lib
+*.so
+*.so.*
+*.dll
+*.dylib
+*.exe
+*.out
+*.app
+
+# CMake build directories
+**/build/
+**/CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+Makefile
+build.ninja
+rules.ninja
+.ninja_deps
+.ninja_log
+
+# IDE/editor files
+*.swp
+*~
+*.user
+*.vcxproj*
+*.sln
+*.DS_Store
+.vscode/
+.idea/
+
+# Generated files
+compile_commands.json
+Testing/
+CTestTestfile.cmake
+_install/
+
+# Logs and debugging
+core
+*.stackdump
+*.log
+
+# Optional: ignore custom build directory if used
+**/build*/ 
