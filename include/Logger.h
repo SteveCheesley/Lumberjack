@@ -2,7 +2,7 @@
 
 #include <string>
 
-namespace getmybytes::logger
+namespace logger
 {
     enum LogLevel
     {

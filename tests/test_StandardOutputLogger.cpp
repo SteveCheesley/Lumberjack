@@ -2,10 +2,10 @@
 #include "Logger.h"
 #include "StandardOutputLogger.h"
 
-using getmybytes::logger::Logger;
-using getmybytes::logger::LogLevel;
-using getmybytes::logger::StandardOutputLogger;
-using getmybytes::logger::LoggerConfiguration;
+using logger::Logger;
+using logger::LogLevel;
+using logger::StandardOutputLogger;
+using logger::LoggerConfiguration;
 
 class StandardOutputLoggerTester : public testing::Test {
     protected:

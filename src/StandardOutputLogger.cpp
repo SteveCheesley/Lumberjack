@@ -4,7 +4,7 @@
 using std::cout;
 using std::endl;
 
-namespace getmybytes::logger
+namespace logger
 {
     StandardOutputLogger::StandardOutputLogger() 
     : loggerConfiguration(new LoggerConfiguration()) {};

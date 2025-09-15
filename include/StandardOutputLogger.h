@@ -2,7 +2,7 @@
 
 #include "Logger.h"
 
-namespace getmybytes::logger
+namespace logger
 {
     class StandardOutputLogger : public Logger {
         private:
