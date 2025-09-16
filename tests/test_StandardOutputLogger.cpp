@@ -85,11 +85,6 @@ TEST_F(StandardOutputLoggerTester, WritesDateProperly) {
     DateFormatHelper dateFormatHelper;
     time_t now = dateFormatHelper.getTimeNow();
 
-    std::cout << "..:: DEBUG ::.." << std::endl;
-    std::cout << now << std::endl;
-    std::cout << "....:: Formatted Date:" << dateFormatHelper.getExpectedDate(&now) << std::endl;
-    std::cout << "..:: END DEBUG ::.." << std::endl;
-
     logger = new StandardOutputLogger(new LoggerConfiguration(
         true, 
         false, 
@@ -97,6 +92,7 @@ TEST_F(StandardOutputLoggerTester, WritesDateProperly) {
     logger->log(LogLevel::ERROR, "Hello, world!");
 
     std::string output = getCapturedOutput();
+    std::string expectedDateOutput = dateFormatHelper.getExpectedDate(&now);
 
-    EXPECT_EQ(output, "INFO  :: Hello, World!");
+    EXPECT_EQ(output, expectedDateOutput + " INFO  :: Hello, World!");
 }
