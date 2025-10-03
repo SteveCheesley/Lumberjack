@@ -9,7 +9,7 @@ namespace lumberjack::format
     class ILogFormatter 
     {
         public:
-           std::string formatMessage(lumberjack::LogLevel level, std::string message);
+           virtual std::string formatMessage(lumberjack::LogLevel level, std::string message) = 0;
     };
 }
 
