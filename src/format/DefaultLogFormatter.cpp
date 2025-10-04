@@ -12,7 +12,7 @@ namespace lumberjack::format
     {
     }
 
-    std::string DefaultLogFormatter::log(LogLevel logLevel, std::string message)
+    std::string DefaultLogFormatter::formatMessage(LogLevel logLevel, std::string message)
     {
         // TODO - Formatting logic goes here
         return "output-goes-here";

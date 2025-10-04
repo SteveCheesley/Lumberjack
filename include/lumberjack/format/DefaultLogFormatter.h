@@ -3,18 +3,19 @@
 
 #include "lumberjack/format/LogMessageFormat.h"
 #include "lumberjack/LogLevel.h"
+#include "lumberjack/format/ILogFormatter.h"
 #include <string>
 
 namespace lumberjack::format 
 {
-    class DefaultLogFormatter
+    class DefaultLogFormatter : public ILogFormatter
     {
         private:
             LogMessageFormat logMessageFormat;
         public:
             DefaultLogFormatter();
             DefaultLogFormatter(LogMessageFormat LogMessageFormat);
-            std::string log(LogLevel logLevel, std::string message);
+            std::string formatMessage(LogLevel logLevel, std::string message);
     };
 };
 
