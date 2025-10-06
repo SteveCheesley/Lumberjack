@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/28.1.2 Chrome/138.0.7204.243 Electron/37.4.0 Safari/537.36" version="28.1.2">
   <diagram name="Class Diagram" id="SmKHWKqtBj3rooVa6Wev">
-    <mxGraphModel dx="2548" dy="830" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="3169" dy="1203" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -51,11 +51,11 @@
         <mxCell id="W8QUFkcHTBao64T8szoz-14" value="" style="html=1;align=left;spacing=0;spacingLeft=8;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;" parent="W8QUFkcHTBao64T8szoz-5" vertex="1">
           <mxGeometry y="122" width="200" height="6" as="geometry" />
         </mxCell>
-        <mxCell id="QkgNHBvAxYuQNVZWHSEW-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;endSize=16;" parent="1" source="W8QUFkcHTBao64T8szoz-15" target="W8QUFkcHTBao64T8szoz-30" edge="1">
+        <mxCell id="QkgNHBvAxYuQNVZWHSEW-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.75;entryY=1;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;endSize=16;" parent="1" source="W8QUFkcHTBao64T8szoz-15" target="W8QUFkcHTBao64T8szoz-30" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="W8QUFkcHTBao64T8szoz-15" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&amp;lt;&amp;lt;structure&amp;gt;&amp;gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LogMessage&lt;/b&gt;&lt;b style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;Format&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ isDatePrinted: bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ isTimePrinted: bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ isSourcePrinted: bool&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="-745" y="1370" width="240" height="120" as="geometry" />
+          <mxGeometry x="-520" y="1410" width="240" height="120" as="geometry" />
         </mxCell>
         <mxCell id="W8QUFkcHTBao64T8szoz-22" value="Lumberjack Logging Library :: Class Diagram :: v1.0" style="text;align=center;fontStyle=1;verticalAlign=middle;spacingLeft=3;spacingRight=3;strokeColor=none;rotatable=0;points=[[0,0.5],[1,0.5]];portConstraint=eastwest;html=1;fontSize=16;" parent="1" vertex="1">
           <mxGeometry x="-1110" y="60" width="400" height="26" as="geometry" />
@@ -119,8 +119,26 @@
         <mxCell id="QkgNHBvAxYuQNVZWHSEW-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0;entryDx=245.00000000000003;entryDy=65;entryPerimeter=0;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" parent="1" source="W8QUFkcHTBao64T8szoz-30" target="QkgNHBvAxYuQNVZWHSEW-4" edge="1">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
+        <mxCell id="jqErDWoRWrpl3J_jhjCC-1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;endArrow=none;endFill=0;dashed=1;dashPattern=8 8;" edge="1" parent="1" source="wcohfw5u-uyFV9caVVyn-1" target="W8QUFkcHTBao64T8szoz-15">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
         <mxCell id="wcohfw5u-uyFV9caVVyn-1" value="Decision: Switching this to a class so that I can enforce immutability" style="shape=note;whiteSpace=wrap;html=1;backgroundOutline=1;darkOpacity=0.05;" parent="1" vertex="1">
-          <mxGeometry x="-1060" y="1400" width="245" height="100" as="geometry" />
+          <mxGeometry x="-155" y="1420" width="245" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="jqErDWoRWrpl3J_jhjCC-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.25;entryY=1;entryDx=0;entryDy=0;endArrow=diamondThin;endFill=1;endSize=16;" edge="1" parent="1" source="jqErDWoRWrpl3J_jhjCC-2" target="W8QUFkcHTBao64T8szoz-30">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="jqErDWoRWrpl3J_jhjCC-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;i&gt;&amp;lt;&amp;lt;Interface&amp;gt;&amp;gt;&lt;/i&gt;&lt;br&gt;&lt;b&gt;ITimeProvider&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ now() :&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;std::chrono::system_clock::time_point&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-1020" y="1435" width="380" height="70" as="geometry" />
+        </mxCell>
+        <mxCell id="jqErDWoRWrpl3J_jhjCC-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;SystemTimeProvider&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- logMessageFormat: LogMessageFormat&lt;/p&gt;&lt;hr size=&quot;1&quot; style=&quot;border-style:solid;&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;span style=&quot;background-color: transparent; color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255));&quot;&gt;+ SystemTimeProvider()&lt;/span&gt;&lt;/p&gt;&lt;p style=&quot;margin: 0px 0px 0px 4px;&quot;&gt;&lt;span style=&quot;color: light-dark(rgb(0, 0, 0), rgb(255, 255, 255)); background-color: transparent;&quot;&gt;+ now() :&amp;nbsp;&lt;/span&gt;&lt;span style=&quot;background-color: transparent;&quot;&gt;std::chrono::system_clock::time_point&lt;/span&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="-1025" y="1610" width="390" height="110" as="geometry" />
+        </mxCell>
+        <mxCell id="jqErDWoRWrpl3J_jhjCC-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;dashed=1;dashPattern=8 8;endArrow=block;endFill=0;endSize=12;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="jqErDWoRWrpl3J_jhjCC-3" target="jqErDWoRWrpl3J_jhjCC-2">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-520" y="1751" as="sourcePoint" />
+            <mxPoint x="-520" y="1650" as="targetPoint" />
+          </mxGeometry>
         </mxCell>
       </root>
     </mxGraphModel>
