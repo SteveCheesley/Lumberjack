@@ -1,46 +1,56 @@
 cmake_minimum_required(VERSION 4.0.3)
 
 # ---- Project Definition ----
-project(Logger++ 
-    VERSION 0.1.0
+project(lumberjack 
+    VERSION 1.0.0
     LANGUAGES CXX
 )
 
-# Options
-option(LOGGER_BUILD_TESTS "Build unit tests" ON)
+# ---------------------------------------------------------------
+#   Compiler and build settings
+# ---------------------------------------------------------------
+option(LUMBERJACK_BUILD_TESTS "Build unit tests" ON)
 set(CMAKE_GENERATOR "Ninja")
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)   # Disable compiler-specific extensions (like gnu++20)
 
-# ---- Logging library ----
-add_library(logger STATIC
+# ---------------------------------------------------------------
+#   Library target
+# ---------------------------------------------------------------
+add_library(lumberjack STATIC
         src/StandardOutputLogger.cpp
+        src/format/DefaultLogFormatter.cpp
+        src/format/LogMessageFormat.cpp
 )
 
-# Public headers
-target_include_directories(logger 
+# Public headers - Available to consumers of this library
+target_include_directories(lumberjack 
     PUBLIC
         $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
         $<INSTALL_INTERFACE:include>
 )
 
 # Defined C++ standard
-target_compile_features(logger 
+target_compile_features(lumberjack 
     PUBLIC 
         cxx_std_17
 )
 
 # Version properties
-set_target_properties(logger PROPERTIES
+set_target_properties(lumberjack PROPERTIES
     VERSION ${PROJECT_VERSION}
     SOVERSION ${PROJECT_VERSION_MAJOR}
-    EXPORT_NAME logger
+    EXPORT_NAME lumberjack
 )
 
-# Namespace alias (preferred consumption)
-add_library(Logger::logger ALIAS logger)
+# Namespace alias for cleaner linking - Lumberjack::lumberjack
+add_library(Lumberjack::lumberjack ALIAS lumberjack)
 
-# ---- Tests ----
-if(LOGGER_BUILD_TESTS)
-
+if(LUMBERJACK_BUILD_TESTS)
+    # ---------------------------------------------------------------
+    #   Testing Setup with GoogleTest
+    # ---------------------------------------------------------------
     include(FetchContent)
   
     FetchContent_Declare(
@@ -52,13 +62,25 @@ if(LOGGER_BUILD_TESTS)
 
     enable_testing()
 
-    add_executable(logger_tests tests/test_StandardOutputLogger.cpp)
-    target_link_libraries(logger_tests PRIVATE
-        Logger::logger
+    # ---------------------------------------------------------------
+    #   Test target definition
+    # ---------------------------------------------------------------
+    # Automatically gather all test .cpp files from the tests directory
+    file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
+        tests/*.cpp
+    )
+
+    add_executable(lumberjack_tests 
+        ${TEST_SOURCES}
+    )
+
+    # Link the test executable against your library and GoogleTest
+    target_link_libraries(lumberjack_tests PRIVATE
+        lumberjack
         GTest::gtest_main
     )
 
     include(GoogleTest)
-    gtest_discover_tests(logger_tests)
+    gtest_discover_tests(lumberjack_tests)
 endif()
 
