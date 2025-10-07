@@ -1,4 +1,7 @@
 #include "lumberjack/format/DefaultLogFormatter.h"
+#include "lumberjack/time/SystemTimeProvider.h"
+
+using lumberjack::time::SystemTimeProvider;
 
 namespace lumberjack::format
 {
@@ -8,7 +11,14 @@ namespace lumberjack::format
     }
 
     DefaultLogFormatter::DefaultLogFormatter(LogMessageFormat logMessageFormat) 
-        : logMessageFormat(logMessageFormat)
+        : DefaultLogFormatter(logMessageFormat, new SystemTimeProvider())
+    {
+    }
+
+    DefaultLogFormatter::DefaultLogFormatter(
+        LogMessageFormat logMessageFormat, 
+        ITimeProvider* timeProvider)
+        : logMessageFormat(logMessageFormat), timeProvider(timeProvider)
     {
     }
 

@@ -8,7 +8,7 @@ namespace lumberjack::time
     class SystemTimeProvider : public ITimeProvider
     {
         public:
-            std::chrono::system_clock::time_point now();
+            std::chrono::system_clock::time_point now() const override;
     };
 };
 

@@ -18,11 +18,14 @@ set(CMAKE_CXX_EXTENSIONS OFF)   # Disable compiler-specific extensions (like gnu
 # ---------------------------------------------------------------
 #   Library target
 # ---------------------------------------------------------------
-add_library(lumberjack STATIC
-        src/StandardOutputLogger.cpp
-        src/format/DefaultLogFormatter.cpp
-        src/format/LogMessageFormat.cpp
+# Specify the source directories to include
+file(GLOB SOURCES CONFIGURE_DEPENDS
+    src/*.cpp
+    src/format/*.cpp
+    src/time/*.cpp
 )
+
+add_library(lumberjack STATIC ${SOURCES})
 
 # Public headers - Available to consumers of this library
 target_include_directories(lumberjack 
