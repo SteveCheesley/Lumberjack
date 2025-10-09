@@ -10,7 +10,7 @@ using lumberjack::time::MockTimeProvider;
 using lumberjack::format::LogMessageFormat;
 using lumberjack::LogLevel;
 
-TEST(DefaultLogFormatterTest, HandlesStandardInput) {
+TEST(DefaultLogFormatterTest, BasicSuccessTest) {
     auto fixedTime = std::chrono::system_clock::from_time_t(1609459200);
     ITimeProvider* mockTimeProvider = new MockTimeProvider(fixedTime);
 
@@ -19,4 +19,26 @@ TEST(DefaultLogFormatterTest, HandlesStandardInput) {
     std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
 
     EXPECT_EQ(result, "2025-10-04 20:39.921 [INFO] Hello, World!");
+}
+
+TEST(DefaultLogFormatterTest, CanRestrictLevel) {
+    auto fixedTime = std::chrono::system_clock::from_time_t(1609459200);
+    ITimeProvider* mockTimeProvider = new MockTimeProvider(fixedTime);
+
+    ILogFormatter* subject = new DefaultLogFormatter(LogMessageFormat(true, true, false), mockTimeProvider);
+    
+    std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
+
+    EXPECT_EQ(result, "2025-10-04 20:39.921 Hello, World!");
+}
+
+TEST(DefaultLogFormatterTest, CanRestrictTime) {
+    auto fixedTime = std::chrono::system_clock::from_time_t(1609459200);
+    ITimeProvider* mockTimeProvider = new MockTimeProvider(fixedTime);
+
+    ILogFormatter* subject = new DefaultLogFormatter(LogMessageFormat(true, false, false), mockTimeProvider);
+    
+    std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
+
+    EXPECT_EQ(result, "2025-10-04 Hello, World!");
 }
