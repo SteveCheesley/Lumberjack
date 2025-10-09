@@ -29,7 +29,6 @@ class DefaultLogFormatterTest : public ::testing::Test {
         }
 };
 
-
 TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
     ILogFormatter* subject = new DefaultLogFormatter(
         LogMessageFormat(true, true, true), 
