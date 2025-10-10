@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include <string>
+#include <tuple>
 #include "lumberjack/format/DefaultLogFormatter.h"
 #include "../time/MockTimeProvider.h"
 
@@ -10,11 +11,12 @@ using lumberjack::time::MockTimeProvider;
 using lumberjack::format::LogMessageFormat;
 using lumberjack::LogLevel;
 
-struct TimeHelper {
-
+struct TestParameters {
+    LogMessageFormat logFormat;
+    std::string expectedOutput;
 };
 
-class DefaultLogFormatterTest : public ::testing::Test {
+class DefaultLogFormatterTest : public ::testing::TestWithParam<TestParameters> {
     protected:
         ITimeProvider* mockTimeProvider;
 
@@ -37,4 +39,30 @@ TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
     std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
 
     EXPECT_EQ(result, "2025-10-04 20:39.921 [INFO] Hello, World!");
+};
+
+TEST_P(DefaultLogFormatterTest, FormatsOutputBasedOnConfiguration) {
+    TestParameters testParameters = GetParam();
+    ILogFormatter* subject = new DefaultLogFormatter(
+        testParameters.logFormat, 
+        mockTimeProvider);
+    
+    std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
+
+    EXPECT_EQ(result, testParameters.expectedOutput);
 }
+
+INSTANTIATE_TEST_SUITE_P(
+    MessageFormatCases,
+    DefaultLogFormatterTest,
+    ::testing::Values(
+        TestParameters{
+            LogMessageFormat(true, true, false), 
+            "2025-10-04 20:39.921 Hello, World!"
+        },
+        TestParameters{
+            LogMessageFormat(true, false, false), 
+            "2025-10-04 Hello, World!"
+        }
+    )
+);
