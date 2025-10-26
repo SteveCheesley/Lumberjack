@@ -83,6 +83,9 @@ if(LUMBERJACK_BUILD_TESTS)
         GTest::gtest_main
     )
 
+    # Register the test with CTest
+    add_test(NAME lumberjack_tests COMMAND lumberjack_tests)
+
     include(GoogleTest)
     gtest_discover_tests(lumberjack_tests)
 endif()
