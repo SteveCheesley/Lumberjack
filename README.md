@@ -1,6 +1,22 @@
-# Logger++
+# Lumberjack C++ Logging Library
 Idea for a name "Lumberjack" as in someone who is a logger!
 
+## Unit Testing
+To execute all unit tests, simply run...
+
+```bash
+./test.sh
+```
+
+If you wish to run a single test, simply run the following
+
+```bash
+./test.sh -t <testsuite>.<testcase>
+```
+For example...
+```bash
+./test.sh -t DefaultLogFormatterTest.BasicSuccessTest
+```
 
 ## Getting started
 
