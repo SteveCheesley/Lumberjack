@@ -8,11 +8,13 @@ std::tm *getUtcTime(ITimeProvider *timeProvider)
     std::time_t time = std::chrono::system_clock::to_time_t(now);
 
     // Convert to UTC-based tm structure
-    std::tm *utc_time = std::gmtime(&time);
+    return std::gmtime(&time);
 }
 
 std::string formatTime(std::tm *timestamp, std::string formatString)
 {
     std::ostringstream dateStringStream;
     dateStringStream << std::put_time(timestamp, formatString.c_str());
+
+    return dateStringStream.str();
 }
