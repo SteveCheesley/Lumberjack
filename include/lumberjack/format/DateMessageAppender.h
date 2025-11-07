@@ -10,11 +10,12 @@ namespace lumberjack::format
     {
         private:
             const LogMessageFormat &logMessageFormat;
+        protected:
+            bool canAddToMessage() override final;
+            std::string doMessageBuild() override final;
         public:
             DateMessageAppender() = delete;
             DateMessageAppender(const LogMessageFormat& logMessageFormat);
-            bool canAddToMessage() override final;
-            std::string doMessageBuild() override final;
     };
 }
 
