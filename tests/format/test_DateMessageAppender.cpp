@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "DateMessageAppender.h"
+#include "lumberjack/format/DateMessageAppender.h"
 #include "lumberjack/LogLevel.h"
 
 class DateMessageAppenderTest : public testing::Test {
