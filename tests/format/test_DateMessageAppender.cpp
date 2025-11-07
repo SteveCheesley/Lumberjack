@@ -1,3 +1,4 @@
+#include <string>
 #include <gtest/gtest.h>
 #include "lumberjack/format/DateMessageAppender.h"
 #include "lumberjack/LogLevel.h"
@@ -14,4 +15,8 @@ TEST_F(DateMessageAppenderTest, testBasicSuccess) {
         false);
 
     subject = new lumberjack::format::DateMessageAppender(logMessageFormat);
+
+    std::string result = subject->buildMessage();
+
+    EXPECT_EQ(result, "2025-10-04 ");
 }
