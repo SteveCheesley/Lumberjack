@@ -5,6 +5,7 @@ namespace lumberjack::format
     IMessageBuilder *AbstractMessageBuilder::setNext(IMessageBuilder *messageBuilder)
     {
         this->nextHandler = messageBuilder;
+        return messageBuilder;
     }
 
     std::string AbstractMessageBuilder::buildMessage()
