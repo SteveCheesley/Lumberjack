@@ -1,8 +1,9 @@
 #ifndef DATEMESSAGEAPPENDER_H
 #define DATEMESSAGEAPPENDER_H
 
-#include "AbstractMessageBuilder.h"
-#include "LogMessageFormat.h"
+#include "lumberjack/format/AbstractMessageBuilder.h"
+#include "lumberjack/format/LogMessageFormat.h"
+#include "lumberjack/time/ITimeProvider.h"
 
 namespace lumberjack::format
 {
