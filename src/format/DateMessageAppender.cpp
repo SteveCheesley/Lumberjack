@@ -27,7 +27,6 @@ namespace lumberjack::format
 
     std::string DateMessageAppender::doMessageBuild()
     {
-        // TODO - Setup the class to pass in a time provider (follow the constructor from the DefaultLogFormatter)
         std::tm* utcTime = getUtcTime(timeProvider);
         std::string dateString = formatTime(utcTime, "%Y-%m-%d");
 
