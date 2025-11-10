@@ -28,7 +28,7 @@ namespace lumberjack::format
     std::string DateMessageAppender::doMessageBuild()
     {
         std::tm* utcTime = getUtcTime(timeProvider);
-        std::string dateString = formatTime(utcTime, "%Y-%m-%d");
+        std::string dateString = formatTime(utcTime, "%Y-%m-%d ");
 
         return dateString;
     }
