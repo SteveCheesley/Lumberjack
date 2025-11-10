@@ -9,6 +9,7 @@ namespace lumberjack::format
     class DateMessageAppender : public AbstractMessageBuilder
     {
         private:
+            lumberjack::time::ITimeProvider* timeProvider;
             const LogMessageFormat &logMessageFormat;
         protected:
             bool canAddToMessage() override final;
@@ -16,6 +17,9 @@ namespace lumberjack::format
         public:
             DateMessageAppender() = delete;
             DateMessageAppender(const LogMessageFormat& logMessageFormat);
+            DateMessageAppender(
+                const LogMessageFormat& logMessageFormat, 
+                lumberjack::time::ITimeProvider* timeProvider);
     };
 }
 
