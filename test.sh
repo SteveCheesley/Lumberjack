@@ -20,4 +20,4 @@ else
     echo "..:: Executing all tests in the suite ::.."
     ctest --test-dir build --output-on-failure
 fi
-echo "..:: Test Execution Complete ::..
+echo "..:: Test Execution Complete ::.."
