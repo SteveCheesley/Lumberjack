@@ -6,15 +6,15 @@
 
 class DateMessageAppenderTest : public testing::Test
 {
-protected:
-    lumberjack::time::MockTimeProvider* mockTimeProvider;
-    lumberjack::format::DateMessageAppender *subject;
+    protected:
+        lumberjack::time::MockTimeProvider* mockTimeProvider;
+        lumberjack::format::DateMessageAppender *subject;
 
-    void SetUp() override
-    {
-        auto fixedTime = std::chrono::system_clock::from_time_t(1759737600);
-        mockTimeProvider = new lumberjack::time::MockTimeProvider(fixedTime);
-    }
+        void SetUp() override
+        {
+            auto fixedTime = std::chrono::system_clock::from_time_t(1759737600);
+            mockTimeProvider = new lumberjack::time::MockTimeProvider(fixedTime);
+        }
 };
 
 TEST_F(DateMessageAppenderTest, testBasicSuccess)
