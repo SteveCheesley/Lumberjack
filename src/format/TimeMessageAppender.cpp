@@ -21,11 +21,14 @@ namespace lumberjack::format
     }
     bool TimeMessageAppender::canAddToMessage()
     {
-        return false;
+        return this->logMessageFormat.isTimePrinted();
     }
 
     std::string TimeMessageAppender::doMessageBuild()
     {
-        return "";
+        std::tm* utcTime = getUtcTime(timeProvider);
+        std::string dateString = formatTime(utcTime, "%H:%M:%S ");
+
+        return dateString;
     }
 }
