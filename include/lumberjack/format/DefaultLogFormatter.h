@@ -20,7 +20,7 @@ namespace lumberjack::format
             DefaultLogFormatter();
             DefaultLogFormatter(LogMessageFormat LogMessageFormat);
             DefaultLogFormatter(LogMessageFormat LogMessageFormat, ITimeProvider* timeProvider);
-            std::string formatMessage(LogLevel logLevel, std::string message);
+            std::string formatMessage(std::type_index source, LogLevel logLevel, std::string message);
     };
 };
 
