@@ -9,13 +9,13 @@ namespace lumberjack::format
     class SourceMessageAppender : public AbstractMessageBuilder
     {
         private:
-            const lumberjack::format::LogMessageFormat &LogMessageFormat;
+            const lumberjack::format::LogMessageFormat &logMessageFormat;
         protected:
             bool canAddToMessage() override final;
             std::string doMessageBuild() override final;
         public:
             SourceMessageAppender() = delete;
-            SourceMessageAppender(const lumberjack::format::LogMessageFormat& logMessageFormat);
+            SourceMessageAppender(const lumberjack::format::LogMessageFormat &inputLogMessageFormat);
     };
 }
 
