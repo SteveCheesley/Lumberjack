@@ -36,7 +36,7 @@ TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
         LogMessageFormat(true, true, true), 
         mockTimeProvider);
     
-    std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
+    std::string result = subject->formatMessage(typeid(DefaultLogFormatterTest), LogLevel::INFO, "Hello World!");
 
     EXPECT_EQ(result, "2025-10-04 20:39.921 [INFO] Hello, World!");
 };
@@ -47,7 +47,7 @@ TEST_P(DefaultLogFormatterTest, FormatsOutputBasedOnConfiguration) {
         testParameters.logFormat, 
         mockTimeProvider);
     
-    std::string result = subject->formatMessage(LogLevel::INFO, "Hello World!");
+    std::string result = subject->formatMessage(typeid(DefaultLogFormatterTest), LogLevel::INFO, "Hello World!");
 
     EXPECT_EQ(result, testParameters.expectedOutput);
 }
