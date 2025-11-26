@@ -2,8 +2,10 @@
 
 namespace lumberjack::format
 {
-    SourceMessageAppender::SourceMessageAppender(const lumberjack::format::LogMessageFormat &inputLogMessageFormat) 
+    SourceMessageAppender::SourceMessageAppender(const std::type_index &inputLogMessageSource,
+        const lumberjack::format::LogMessageFormat &inputLogMessageFormat) 
         : AbstractMessageBuilder(),
+        logMessageSource(inputLogMessageSource),
         logMessageFormat(inputLogMessageFormat)
     {
     }
