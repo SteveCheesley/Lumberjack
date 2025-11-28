@@ -45,4 +45,4 @@ core
 *.log
 
 # Optional: ignore custom build directory if used
-**/build*/ 
+**/build/ 
