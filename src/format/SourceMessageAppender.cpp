@@ -1,6 +1,7 @@
 #include "lumberjack/format/SourceMessageAppender.h"
 #include <cxxabi.h>
 #include <iostream>
+#include <cctype>
 
 namespace lumberjack::format
 {
@@ -21,6 +22,7 @@ namespace lumberjack::format
     {
         const char *sourceName = logMessageSource.name();
         std::string sourceNameString(sourceName);
+
         // Is the input a Class?
         if (std::string(sourceName).at(0) == 'N') 
         {
@@ -39,7 +41,19 @@ namespace lumberjack::format
             return className + " ";
         }
 
-        // TODO - Add in a condition that handles local class and struct definitions (i.e. 0-9 prefix)
+        // Is the input a local Class or Struct?
+        if (std::isdigit(std::string(sourceName).at(0))) {
+            // Demangle the source name
+            int demanglingStatus;
+            char *demangled = abi::__cxa_demangle(sourceName, 0, 0, &demanglingStatus);
+            std::string demangledString = std::string(demangled);
+
+            // Clear allocation after use
+            std::free(demangled);
+            demangled = nullptr;
+
+            return demangledString + " ";
+        }
 
         return sourceNameString + " ";
     }
