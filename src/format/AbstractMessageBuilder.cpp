@@ -8,18 +8,18 @@ namespace lumberjack::format
         return messageBuilder;
     }
 
-    std::string AbstractMessageBuilder::buildMessage()
+    std::string AbstractMessageBuilder::buildMessage(builder::MessageBuilderInput *input)
     {
         std::string message = "";
 
         if (this->nextHandler)
         {
-            message = this->nextHandler->buildMessage();
+            message = this->nextHandler->buildMessage(input);
         }
 
         if (this->canAddToMessage())
         {
-            message = message + this->doMessageBuild();
+            message = message + this->doMessageBuild(input);
         }
 
         return message;

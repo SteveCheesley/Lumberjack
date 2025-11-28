@@ -1,6 +1,7 @@
 #ifndef IMESSAGEBUILDER_H
 #define IMESSAGEBUILDER_H
 
+#include "lumberjack/format/builder/MessageBuilderInput.h"
 #include <string>
 
 namespace lumberjack::format
@@ -9,8 +10,8 @@ namespace lumberjack::format
     {
         public:
             virtual IMessageBuilder *setNext(IMessageBuilder *messageBuilder) = 0;
-            virtual std::string buildMessage() = 0;
+            virtual std::string buildMessage(builder::MessageBuilderInput* input) = 0;
     };
-}
+};
 
 #endif
