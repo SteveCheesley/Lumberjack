@@ -12,6 +12,7 @@ namespace lumberjack::format
         private:
             const std::type_index &logMessageSource;
             const lumberjack::format::LogMessageFormat &logMessageFormat;
+            std::string demangleTypeIndex(const char *sourceName);
             std::string getClassNameFromDemangledString(std::string demangledString);
             int countCurlyBraces(std::string demangledString);
         protected:

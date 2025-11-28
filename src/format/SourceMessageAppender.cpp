@@ -26,36 +26,33 @@ namespace lumberjack::format
         // Is the input a Class?
         if (std::string(sourceName).at(0) == 'N') 
         {
-            // Demangle the source name
-            int demanglingStatus;
-            char *demangled = abi::__cxa_demangle(sourceName, 0, 0, &demanglingStatus);
-            std::string demangledString = std::string(demangled);
-        
-            // Extract the class name where a namespace exists
+            std::string demangledString = demangleTypeIndex(sourceName);
             std::string className = getClassNameFromDemangledString(demangledString);
-            
-            // Clear allocation after use
-            std::free(demangled);
-            demangled = nullptr;
 
             return className + " ";
         }
 
         // Is the input a local Class or Struct?
         if (std::isdigit(std::string(sourceName).at(0))) {
-            // Demangle the source name
-            int demanglingStatus;
-            char *demangled = abi::__cxa_demangle(sourceName, 0, 0, &demanglingStatus);
-            std::string demangledString = std::string(demangled);
-
-            // Clear allocation after use
-            std::free(demangled);
-            demangled = nullptr;
+            std::string demangledString = demangleTypeIndex(sourceName);
 
             return demangledString + " ";
         }
 
         return sourceNameString + " ";
+    }
+
+    std::string SourceMessageAppender::demangleTypeIndex(const char *sourceName) 
+    {
+        int demanglingStatus;
+        char *demangled = abi::__cxa_demangle(sourceName, 0, 0, &demanglingStatus);
+        
+        std::string result = std::string(demangled);
+        
+        std::free(demangled);
+        demangled = nullptr;
+
+        return result;
     }
 
     int SourceMessageAppender::countCurlyBraces(std::string demangledString)
