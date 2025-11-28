@@ -14,7 +14,7 @@ namespace lumberjack::format
             const lumberjack::format::LogMessageFormat &logMessageFormat;
         protected:
             bool canAddToMessage() override final;
-            std::string doMessageBuild() override final;
+            std::string doMessageBuild(builder::MessageBuilderInput* input) override final;
         public:
             TimeMessageAppender() = delete;
             TimeMessageAppender(const lumberjack::format::LogMessageFormat& logMessageFormat);

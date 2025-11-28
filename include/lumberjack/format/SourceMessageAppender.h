@@ -17,7 +17,7 @@ namespace lumberjack::format
             int countCurlyBraces(std::string demangledString);
         protected:
             bool canAddToMessage() override final;
-            std::string doMessageBuild() override final;
+            std::string doMessageBuild(builder::MessageBuilderInput* input) override final;
         public:
             SourceMessageAppender() = delete;
             SourceMessageAppender(const std::type_index &inputLogMessageSource,

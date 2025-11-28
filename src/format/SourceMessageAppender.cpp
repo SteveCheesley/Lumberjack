@@ -18,7 +18,7 @@ namespace lumberjack::format
         return this->logMessageFormat.isSourcePrinted();
     }
 
-    std::string SourceMessageAppender::doMessageBuild()
+    std::string SourceMessageAppender::doMessageBuild(builder::MessageBuilderInput* input)
     {
         const char *sourceName = logMessageSource.name();
         std::string sourceNameString(sourceName);

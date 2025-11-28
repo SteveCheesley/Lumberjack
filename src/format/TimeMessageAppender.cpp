@@ -24,7 +24,7 @@ namespace lumberjack::format
         return this->logMessageFormat.isTimePrinted();
     }
 
-    std::string TimeMessageAppender::doMessageBuild()
+    std::string TimeMessageAppender::doMessageBuild(builder::MessageBuilderInput* input)
     {
         std::tm* utcTime = getUtcTime(timeProvider);
         std::string dateString = formatTime(utcTime, "%H:%M:%S ");
