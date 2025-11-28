@@ -9,7 +9,7 @@ namespace lumberjack::format::builder
     {
         const std::type_index &logMessageSource;
 
-        MessageBuilderInput(std::type_index &logMessageSource) : logMessageSource(logMessageSource) {}
+        MessageBuilderInput(const std::type_index &logMessageSource) : logMessageSource(logMessageSource) {}
     };
 }
 
