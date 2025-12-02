@@ -18,6 +18,12 @@ For example...
 ./test.sh -t DefaultLogFormatterTest.BasicSuccessTest
 ```
 
+You can also run all tests in a specifc test suite by using a wildcard specifier...
+
+```bash
+./test.sh -t SourceMessageAppenderTest.*
+```
+
 ## Getting started
 
 To make it easy for you to get started with GitLab, here's a list of recommended next steps.
