@@ -5,10 +5,8 @@
 
 namespace lumberjack::format
 {
-    SourceMessageAppender::SourceMessageAppender(const std::type_index &inputLogMessageSource,
-                                                 const lumberjack::format::LogMessageFormat &inputLogMessageFormat)
+    SourceMessageAppender::SourceMessageAppender(const lumberjack::format::LogMessageFormat &inputLogMessageFormat)
         : AbstractMessageBuilder(),
-          logMessageSource(inputLogMessageSource),
           logMessageFormat(inputLogMessageFormat)
     {
     }
@@ -20,7 +18,8 @@ namespace lumberjack::format
 
     std::string SourceMessageAppender::doMessageBuild(builder::MessageBuilderInput* input)
     {
-        const char *sourceName = logMessageSource.name();
+        std::type_index inputSource = input->logMessageSource;
+        const char *sourceName = inputSource.name();
         std::string sourceNameString(sourceName);
 
         // Is the input a Class?

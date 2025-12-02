@@ -43,9 +43,7 @@ class SourceMessageAppenderTest : public testing::Test
 
 TEST_F(SourceMessageAppenderTest, BasicSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(
-      typeid(lumberjack::format::AbstractMessageBuilder),
-      *testFormatSpecification);
+  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(lumberjack::format::AbstractMessageBuilder));
@@ -57,9 +55,7 @@ TEST_F(SourceMessageAppenderTest, BasicSuccess)
 
 TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(
-      typeid(sampleFreeFunction),
-      *testFormatSpecification);
+  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(sampleFreeFunction));
@@ -71,9 +67,7 @@ TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
 
 TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(
-      typeid(Person),
-      *testFormatSpecification);
+  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Person));
@@ -85,9 +79,7 @@ TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
 
 TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(
-      typeid(Address),
-      *testFormatSpecification);
+  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Address));

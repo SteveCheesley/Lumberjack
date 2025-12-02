@@ -3,14 +3,12 @@
 
 #include "lumberjack/format/AbstractMessageBuilder.h"
 #include "lumberjack/format/LogMessageFormat.h"
-#include <typeindex>
 
 namespace lumberjack::format
 {
     class SourceMessageAppender : public AbstractMessageBuilder
     {
         private:
-            const std::type_index &logMessageSource;
             const lumberjack::format::LogMessageFormat &logMessageFormat;
             std::string demangleTypeIndex(const char *sourceName);
             std::string getClassNameFromDemangledString(std::string demangledString);
@@ -20,8 +18,7 @@ namespace lumberjack::format
             std::string doMessageBuild(builder::MessageBuilderInput* input) override final;
         public:
             SourceMessageAppender() = delete;
-            SourceMessageAppender(const std::type_index &inputLogMessageSource,
-                const lumberjack::format::LogMessageFormat &inputLogMessageFormat);
+            SourceMessageAppender(const lumberjack::format::LogMessageFormat &inputLogMessageFormat);
     };
 }
 
