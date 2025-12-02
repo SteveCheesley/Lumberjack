@@ -88,3 +88,16 @@ TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 
   EXPECT_EQ(result, "Address ");
 }
+
+TEST_F(SourceMessageAppenderTest, SourceNotRenderedWhenInstructed)
+{
+  lumberjack::format::LogMessageFormat deactivatedFormat(false, false, false);
+  lumberjack::format::SourceMessageAppender subject(deactivatedFormat);
+
+  lumberjack::format::builder::MessageBuilderInput input(
+      typeid(lumberjack::format::AbstractMessageBuilder));
+
+  std::string result = subject.buildMessage(&input);
+
+  EXPECT_EQ(result, "");
+}
