@@ -1,6 +1,6 @@
-#include "lumberjack/format/AbstractMessageBuilder.h"
+#include "lumberjack/format/builder/AbstractMessageBuilder.h"
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     IMessageBuilder *AbstractMessageBuilder::setNext(IMessageBuilder *messageBuilder)
     {

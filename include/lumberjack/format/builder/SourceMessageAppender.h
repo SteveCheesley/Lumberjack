@@ -1,10 +1,10 @@
 #ifndef SOURCEMESSAGEAPPENDER_H
 #define SOURCEMESSAGEAPPENDER_H
 
-#include "lumberjack/format/AbstractMessageBuilder.h"
+#include "lumberjack/format/builder/AbstractMessageBuilder.h"
 #include "lumberjack/format/LogMessageFormat.h"
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     class SourceMessageAppender : public AbstractMessageBuilder
     {

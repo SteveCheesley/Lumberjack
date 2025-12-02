@@ -22,6 +22,7 @@ set(CMAKE_CXX_EXTENSIONS OFF)   # Disable compiler-specific extensions (like gnu
 file(GLOB SOURCES CONFIGURE_DEPENDS
     src/*.cpp
     src/format/*.cpp
+    src/format/builder/*.cpp
     src/time/*.cpp
 )
 

@@ -4,7 +4,7 @@
 #include "lumberjack/format/builder/MessageBuilderInput.h"
 #include <string>
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     class IMessageBuilder
     {

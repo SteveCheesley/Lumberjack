@@ -1,14 +1,14 @@
 #include <string>
 #include <gtest/gtest.h>
-#include "lumberjack/format/DateMessageAppender.h"
+#include "lumberjack/format/builder/DateMessageAppender.h"
 #include "lumberjack/LogLevel.h"
-#include "../time/MockTimeProvider.h"
+#include "../../time/MockTimeProvider.h"
 
 class DateMessageAppenderTest : public testing::Test
 {
     protected:
         lumberjack::time::MockTimeProvider* mockTimeProvider;
-        lumberjack::format::DateMessageAppender *subject;
+        lumberjack::format::builder::DateMessageAppender *subject;
         lumberjack::format::builder::MessageBuilderInput *sampleInput;
 
         void SetUp() override
@@ -26,7 +26,7 @@ TEST_F(DateMessageAppenderTest, testBasicSuccess)
         false,
         false);
 
-    subject = new lumberjack::format::DateMessageAppender(logMessageFormat, mockTimeProvider);
+    subject = new lumberjack::format::builder::DateMessageAppender(logMessageFormat, mockTimeProvider);
 
     std::string result = subject->buildMessage(sampleInput);
 

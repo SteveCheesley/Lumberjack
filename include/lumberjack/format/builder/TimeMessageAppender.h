@@ -1,11 +1,11 @@
 #ifndef TIMEMESSAGEAPPENDER_H
 #define TIMEMESSAGEAPPENDER_H
 
-#include "lumberjack/format/AbstractMessageBuilder.h"
+#include "lumberjack/format/builder/AbstractMessageBuilder.h"
 #include "lumberjack/format/LogMessageFormat.h"
 #include "lumberjack/time/ITimeProvider.h"
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     class TimeMessageAppender : public AbstractMessageBuilder
     {

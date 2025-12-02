@@ -3,7 +3,7 @@
 
 #include "IMessageBuilder.h"
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     class AbstractMessageBuilder : public IMessageBuilder {
         private:

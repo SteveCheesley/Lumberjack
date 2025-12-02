@@ -1,5 +1,5 @@
 #include <gtest/gtest.h>
-#include "lumberjack/format/SourceMessageAppender.h"
+#include "lumberjack/format/builder/SourceMessageAppender.h"
 
 #include <iostream>
 #include <vector>
@@ -43,10 +43,10 @@ class SourceMessageAppenderTest : public testing::Test
 
 TEST_F(SourceMessageAppenderTest, BasicSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
+  lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(lumberjack::format::AbstractMessageBuilder));
+      typeid(lumberjack::format::builder::AbstractMessageBuilder));
 
   std::string result = subject.buildMessage(&input);
 
@@ -55,7 +55,7 @@ TEST_F(SourceMessageAppenderTest, BasicSuccess)
 
 TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
+  lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(sampleFreeFunction));
@@ -67,7 +67,7 @@ TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
 
 TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
+  lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Person));
@@ -79,7 +79,7 @@ TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
 
 TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 {
-  lumberjack::format::SourceMessageAppender subject(*testFormatSpecification);
+  lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Address));
@@ -92,10 +92,10 @@ TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 TEST_F(SourceMessageAppenderTest, SourceNotRenderedWhenInstructed)
 {
   lumberjack::format::LogMessageFormat deactivatedFormat(false, false, false);
-  lumberjack::format::SourceMessageAppender subject(deactivatedFormat);
+  lumberjack::format::builder::SourceMessageAppender subject(deactivatedFormat);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(lumberjack::format::AbstractMessageBuilder));
+      typeid(lumberjack::format::builder::AbstractMessageBuilder));
 
   std::string result = subject.buildMessage(&input);
 

@@ -1,12 +1,12 @@
 #include <gtest/gtest.h>
-#include "lumberjack/format/TimeMessageAppender.h"
-#include "../time/MockTimeProvider.h"
+#include "lumberjack/format/builder/TimeMessageAppender.h"
+#include "../../time/MockTimeProvider.h"
 
 class TimeMessageAppenderTest : public testing::Test
 {
     protected:
         lumberjack::time::MockTimeProvider *mockTimeProvider;
-        lumberjack::format::TimeMessageAppender *subject;
+        lumberjack::format::builder::TimeMessageAppender *subject;
         lumberjack::format::builder::MessageBuilderInput *sampleInput;
 
         void SetUp() override
@@ -24,7 +24,7 @@ TEST_F(TimeMessageAppenderTest, testBasicSuccess)
         true,
         false);        
     
-    subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
+    subject = new lumberjack::format::builder::TimeMessageAppender(logMessageFormat, mockTimeProvider);
 
     std::string result = subject->buildMessage(sampleInput);
 
@@ -38,7 +38,7 @@ TEST_F(TimeMessageAppenderTest, expectEmptyOutputFromFormat)
         false,
         false);        
     
-    subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
+    subject = new lumberjack::format::builder::TimeMessageAppender(logMessageFormat, mockTimeProvider);
 
     lumberjack::format::builder::MessageBuilderInput input(typeid(TimeMessageAppenderTest));
 

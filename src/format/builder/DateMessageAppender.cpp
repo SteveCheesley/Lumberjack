@@ -1,11 +1,11 @@
 #include <chrono>
 
-#include "lumberjack/format/DateMessageAppender.h"
+#include "lumberjack/format/builder/DateMessageAppender.h"
 #include "lumberjack/format/LogMessageFormat.h"
 #include "lumberjack/time/SystemTimeProvider.h"
 #include "lumberjack/time/time_functions.h"
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     DateMessageAppender::DateMessageAppender(const LogMessageFormat &inputLogMessageFormat) 
         : DateMessageAppender(inputLogMessageFormat, new lumberjack::time::SystemTimeProvider())

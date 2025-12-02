@@ -1,9 +1,9 @@
-#include "lumberjack/format/SourceMessageAppender.h"
+#include "lumberjack/format/builder/SourceMessageAppender.h"
 #include <cxxabi.h>
 #include <iostream>
 #include <cctype>
 
-namespace lumberjack::format
+namespace lumberjack::format::builder
 {
     SourceMessageAppender::SourceMessageAppender(const lumberjack::format::LogMessageFormat &inputLogMessageFormat)
         : AbstractMessageBuilder(),
