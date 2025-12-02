@@ -24,11 +24,11 @@ TEST_F(TimeMessageAppenderTest, testBasicSuccess)
         true,
         false);        
     
-        subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
+    subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
 
-        std::string result = subject->buildMessage(sampleInput);
+    std::string result = subject->buildMessage(sampleInput);
 
-        EXPECT_EQ(result, "20:52:53 ");
+    EXPECT_EQ(result, "20:52:53 ");
 }
 
 TEST_F(TimeMessageAppenderTest, expectEmptyOutputFromFormat)
@@ -38,11 +38,11 @@ TEST_F(TimeMessageAppenderTest, expectEmptyOutputFromFormat)
         false,
         false);        
     
-        subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
+    subject = new lumberjack::format::TimeMessageAppender(logMessageFormat, mockTimeProvider);
 
-        lumberjack::format::builder::MessageBuilderInput input(typeid(TimeMessageAppenderTest));
+    lumberjack::format::builder::MessageBuilderInput input(typeid(TimeMessageAppenderTest));
 
-        std::string result = subject->buildMessage(sampleInput);
+    std::string result = subject->buildMessage(sampleInput);
 
-        EXPECT_EQ(result, "");
+    EXPECT_EQ(result, "");
 }
