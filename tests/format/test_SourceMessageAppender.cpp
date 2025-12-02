@@ -24,19 +24,28 @@ std::string sampleFreeFunction(std::string input)
 {
   std::string output = "Hello " + input;
   return output;
-}
+};
 
-TEST(SourceMessageAppenderTest, BasicSuccess)
+class SourceMessageAppenderTest : public testing::Test
 {
-  lumberjack::format::LogMessageFormat logMessageFormat(
-      false,
-      false,
-      true // <- Let's engage the source printout
-  );
+    protected:
+      std::unique_ptr<lumberjack::format::LogMessageFormat> testFormatSpecification;
+    
+      void SetUp() override
+      {
+          testFormatSpecification = std::make_unique<lumberjack::format::LogMessageFormat>(
+            false,
+            false,
+            true
+          );
+      }
+};
 
+TEST_F(SourceMessageAppenderTest, BasicSuccess)
+{
   lumberjack::format::SourceMessageAppender subject(
       typeid(lumberjack::format::AbstractMessageBuilder),
-      logMessageFormat);
+      *testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(lumberjack::format::AbstractMessageBuilder));
@@ -46,16 +55,11 @@ TEST(SourceMessageAppenderTest, BasicSuccess)
   EXPECT_EQ(result, "AbstractMessageBuilder ");
 }
 
-TEST(SourceMessageAppenderTest, FreeFunctionSuccess)
+TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
 {
-  lumberjack::format::LogMessageFormat logMessageFormat(
-      false,
-      false,
-      true); // TODO - DRY
-
   lumberjack::format::SourceMessageAppender subject(
       typeid(sampleFreeFunction),
-      logMessageFormat);
+      *testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(sampleFreeFunction));
@@ -65,16 +69,11 @@ TEST(SourceMessageAppenderTest, FreeFunctionSuccess)
   EXPECT_EQ(result, "FNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES4_E ");
 }
 
-TEST(SourceMessageAppenderTest, LocalClassSuccess)
+TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
 {
-  lumberjack::format::LogMessageFormat logMessageFormat(
-      false,
-      false,
-      true); // TODO - DRY
-
   lumberjack::format::SourceMessageAppender subject(
       typeid(Person),
-      logMessageFormat);
+      *testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Person));
@@ -84,16 +83,11 @@ TEST(SourceMessageAppenderTest, LocalClassSuccess)
   EXPECT_EQ(result, "Person ");
 }
 
-TEST(SourceMessageAppenderTest, LocalStructSuccess)
+TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 {
-  lumberjack::format::LogMessageFormat logMessageFormat(
-      false,
-      false,
-      true); // TODO - DRY
-
   lumberjack::format::SourceMessageAppender subject(
       typeid(Address),
-      logMessageFormat);
+      *testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
       typeid(Address));
