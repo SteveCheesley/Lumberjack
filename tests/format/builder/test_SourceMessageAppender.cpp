@@ -36,6 +36,7 @@ class SourceMessageAppenderTest : public testing::Test
           testFormatSpecification = std::make_unique<lumberjack::format::LogMessageFormat>(
             false,
             false,
+            false,
             true
           );
       }
@@ -91,7 +92,7 @@ TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
 
 TEST_F(SourceMessageAppenderTest, SourceNotRenderedWhenInstructed)
 {
-  lumberjack::format::LogMessageFormat deactivatedFormat(false, false, false);
+  lumberjack::format::LogMessageFormat deactivatedFormat(false, false, false, false);
   lumberjack::format::builder::SourceMessageAppender subject(deactivatedFormat);
 
   lumberjack::format::builder::MessageBuilderInput input(

@@ -24,6 +24,7 @@ TEST_F(DateMessageAppenderTest, testBasicSuccess)
     lumberjack::format::LogMessageFormat logMessageFormat(
         true,
         false,
+        false,
         false);
 
     subject = new lumberjack::format::builder::DateMessageAppender(logMessageFormat, mockTimeProvider);

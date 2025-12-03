@@ -22,6 +22,7 @@ TEST_F(TimeMessageAppenderTest, testBasicSuccess)
     lumberjack::format::LogMessageFormat logMessageFormat(
         false,
         true,
+        false,
         false);        
     
     subject = new lumberjack::format::builder::TimeMessageAppender(logMessageFormat, mockTimeProvider);
@@ -34,6 +35,7 @@ TEST_F(TimeMessageAppenderTest, testBasicSuccess)
 TEST_F(TimeMessageAppenderTest, expectEmptyOutputFromFormat)
 {
     lumberjack::format::LogMessageFormat logMessageFormat(
+        false,
         false,
         false,
         false);        
