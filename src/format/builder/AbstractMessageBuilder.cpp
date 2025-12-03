@@ -8,7 +8,7 @@ namespace lumberjack::format::builder
         return messageBuilder;
     }
 
-    std::string AbstractMessageBuilder::buildMessage(builder::MessageBuilderInput *input)
+    std::string AbstractMessageBuilder::buildMessage(MessageBuilderInput *input)
     {
         std::string message = "";
 
