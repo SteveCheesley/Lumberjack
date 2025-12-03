@@ -10,12 +10,12 @@ namespace lumberjack::format::builder
             IMessageBuilder *nextHandler;
         protected:
             virtual bool canAddToMessage() = 0;
-            virtual std::string doMessageBuild(builder::MessageBuilderInput *input) = 0;
+            virtual std::string doMessageBuild(MessageBuilderInput *input) = 0;
         public:
             AbstractMessageBuilder() : nextHandler(nullptr) {
             }
             IMessageBuilder *setNext(IMessageBuilder *messageBuilder) override;
-            std::string buildMessage(builder::MessageBuilderInput *input) override final;
+            std::string buildMessage(MessageBuilderInput *input) override final;
     };
 }
 

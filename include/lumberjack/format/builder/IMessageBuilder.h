@@ -10,7 +10,7 @@ namespace lumberjack::format::builder
     {
         public:
             virtual IMessageBuilder *setNext(IMessageBuilder *messageBuilder) = 0;
-            virtual std::string buildMessage(builder::MessageBuilderInput* input) = 0;
+            virtual std::string buildMessage(MessageBuilderInput* input) = 0;
     };
 };
 
