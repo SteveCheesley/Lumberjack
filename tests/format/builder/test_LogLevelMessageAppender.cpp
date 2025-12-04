@@ -17,7 +17,8 @@ class LogLevelMessageAppenderTest : public testing::Test
             );
 
             testBuildMessageInput = std::make_unique<lumberjack::format::builder::MessageBuilderInput>(
-                typeid(LogLevelMessageAppenderTest)
+                typeid(LogLevelMessageAppenderTest),
+                lumberjack::LogLevel::INFO
             );
         }
 };

@@ -1,5 +1,6 @@
 #include <gtest/gtest.h>
 #include "lumberjack/format/builder/SourceMessageAppender.h"
+#include "lumberjack/LogLevel.h"
 
 #include <iostream>
 #include <vector>
@@ -47,7 +48,8 @@ TEST_F(SourceMessageAppenderTest, BasicSuccess)
   lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(lumberjack::format::builder::AbstractMessageBuilder));
+      typeid(lumberjack::format::builder::AbstractMessageBuilder),
+      lumberjack::LogLevel::INFO);
 
   std::string result = subject.buildMessage(&input);
 
@@ -59,7 +61,8 @@ TEST_F(SourceMessageAppenderTest, FreeFunctionSuccess)
   lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(sampleFreeFunction));
+      typeid(sampleFreeFunction),
+      lumberjack::LogLevel::INFO);
 
   std::string result = subject.buildMessage(&input);
 
@@ -71,7 +74,8 @@ TEST_F(SourceMessageAppenderTest, LocalClassSuccess)
   lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(Person));
+      typeid(Person),
+      lumberjack::LogLevel::INFO);
 
   std::string result = subject.buildMessage(&input);
 
@@ -83,7 +87,8 @@ TEST_F(SourceMessageAppenderTest, LocalStructSuccess)
   lumberjack::format::builder::SourceMessageAppender subject(*testFormatSpecification);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(Address));
+      typeid(Address),
+      lumberjack::LogLevel::INFO);
 
   std::string result = subject.buildMessage(&input);
 
@@ -96,7 +101,8 @@ TEST_F(SourceMessageAppenderTest, SourceNotRenderedWhenInstructed)
   lumberjack::format::builder::SourceMessageAppender subject(deactivatedFormat);
 
   lumberjack::format::builder::MessageBuilderInput input(
-      typeid(lumberjack::format::builder::AbstractMessageBuilder));
+      typeid(lumberjack::format::builder::AbstractMessageBuilder),
+      lumberjack::LogLevel::INFO);
 
   std::string result = subject.buildMessage(&input);
 

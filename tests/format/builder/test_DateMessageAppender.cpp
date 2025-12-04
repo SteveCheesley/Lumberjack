@@ -15,7 +15,9 @@ class DateMessageAppenderTest : public testing::Test
         {
             auto fixedTime = std::chrono::system_clock::from_time_t(1759737600);
             mockTimeProvider = new lumberjack::time::MockTimeProvider(fixedTime);
-            sampleInput = new lumberjack::format::builder::MessageBuilderInput(typeid(DateMessageAppenderTest));
+            sampleInput = new lumberjack::format::builder::MessageBuilderInput(
+                typeid(DateMessageAppenderTest),
+            lumberjack::LogLevel::INFO);
         }
 };
 

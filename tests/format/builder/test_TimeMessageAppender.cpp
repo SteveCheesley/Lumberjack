@@ -13,7 +13,10 @@ class TimeMessageAppenderTest : public testing::Test
         {
             auto fixedTime = std::chrono::system_clock::from_time_t(1762980773);
             mockTimeProvider = new lumberjack::time::MockTimeProvider(fixedTime);
-            sampleInput = new lumberjack::format::builder::MessageBuilderInput(typeid(TimeMessageAppenderTest));
+            sampleInput = new lumberjack::format::builder::MessageBuilderInput(
+                typeid(TimeMessageAppenderTest),
+                lumberjack::LogLevel::INFO
+            );
         }
 };
 
@@ -42,7 +45,10 @@ TEST_F(TimeMessageAppenderTest, expectEmptyOutputFromFormat)
     
     subject = new lumberjack::format::builder::TimeMessageAppender(logMessageFormat, mockTimeProvider);
 
-    lumberjack::format::builder::MessageBuilderInput input(typeid(TimeMessageAppenderTest));
+    lumberjack::format::builder::MessageBuilderInput input(
+        typeid(TimeMessageAppenderTest),
+        lumberjack::LogLevel::INFO
+    );
 
     std::string result = subject->buildMessage(sampleInput);
 
