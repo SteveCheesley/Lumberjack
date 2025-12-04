@@ -8,11 +8,21 @@ namespace lumberjack::format::builder
 
     bool LogLevelMessageAppender::canAddToMessage() 
     {
-        return true;
+        return this->logMessageFormat.isLevelPrinted();
     }
 
     std::string LogLevelMessageAppender::doMessageBuild(MessageBuilderInput *input)
     {
-        return "sample output";
+        std::string logLevelString = "default";
+
+        switch (input->logLevel) {
+            case ERROR:   logLevelString = "ERROR";
+            case WARNING: logLevelString = "WARNING";
+            case INFO:    logLevelString = "INFO";
+            case DEBUG:   logLevelString = "DEBUG";
+            case TRACE:   logLevelString = "TRACE";
+        }
+
+        return "[" + logLevelString + "] ";
     }
 }
