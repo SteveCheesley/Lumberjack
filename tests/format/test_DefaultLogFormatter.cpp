@@ -33,7 +33,7 @@ class DefaultLogFormatterTest : public ::testing::TestWithParam<TestParameters> 
 
 TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
     ILogFormatter* subject = new DefaultLogFormatter(
-        LogMessageFormat(true, true, true), 
+        LogMessageFormat(true, true, true, true), 
         mockTimeProvider);
     
     std::string result = subject->formatMessage(typeid(DefaultLogFormatterTest), LogLevel::INFO, "Hello World!");
@@ -57,11 +57,11 @@ INSTANTIATE_TEST_SUITE_P(
     DefaultLogFormatterTest,
     ::testing::Values(
         TestParameters{
-            LogMessageFormat(true, true, false), 
+            LogMessageFormat(true, true, false, false), 
             "2025-10-04 20:39.921 Hello, World!"
         },
         TestParameters{
-            LogMessageFormat(true, false, false), 
+            LogMessageFormat(true, false, false, false), 
             "2025-10-04 Hello, World!"
         }
     )

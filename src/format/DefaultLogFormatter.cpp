@@ -11,7 +11,7 @@ using lumberjack::time::SystemTimeProvider;
 namespace lumberjack::format
 {
     DefaultLogFormatter::DefaultLogFormatter() 
-        : DefaultLogFormatter(LogMessageFormat(true, true, true))
+        : DefaultLogFormatter(LogMessageFormat(true, true, true, true))
     {
     }
 
@@ -27,7 +27,7 @@ namespace lumberjack::format
     {
     }
 
-    std::string DefaultLogFormatter::formatMessage(LogLevel logLevel, std::string message)
+    std::string DefaultLogFormatter::formatMessage(std::type_index source, LogLevel logLevel, std::string message)
     {
         std::string output = "";
 
@@ -68,11 +68,25 @@ namespace lumberjack::format
         }
 
         if (logMessageFormat.isSourcePrinted()) {
-            // TODO - Figure out how to get this here...
+            // This is passed in / processed as a type_index
         }
+
+        // I'm seriously thinking COR for this logic
+        std::string logLevelString = "";
+
+        switch (logLevel) {
+            case ERROR:   logLevelString = "ERROR";
+            case WARNING: logLevelString = "WARNING";
+            case INFO:    logLevelString = "INFO";
+            case DEBUG:   logLevelString = "DEBUG";
+            case TRACE:   logLevelString = "TRACE";
+        }
+
+        // TODO - figure out why this always picks trace, regardless of what I give it
 
         output = dateString + " " + 
                  timeString + " " + 
+                 "[" + logLevelString + "] " +
                  sourceString + message;
         
         return output;
