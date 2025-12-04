@@ -35,7 +35,7 @@ TEST_F(LogLevelMessageAppenderTest, basicSuccessTest)
 TEST_F(LogLevelMessageAppenderTest, isOutputEmptyIfInactive)
 {
     lumberjack::format::LogMessageFormat deactivatedFormat(false, false, false, false);
-    lumberjack::format::builder::LogLevelMessageAppender subject(*testFormatSpecification);
+    lumberjack::format::builder::LogLevelMessageAppender subject(deactivatedFormat);
 
     std::string result = subject.buildMessage(testBuildMessageInput.get());
 
