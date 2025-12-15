@@ -13,14 +13,24 @@ namespace lumberjack::format::builder
 
     std::string LogLevelMessageAppender::doMessageBuild(MessageBuilderInput *input)
     {
-        std::string logLevelString = "default";
-
+        std::string logLevelString = "";
+        
         switch (input->logLevel) {
-            case ERROR:   logLevelString = "ERROR";
-            case WARNING: logLevelString = "WARNING";
-            case INFO:    logLevelString = "INFO";
-            case DEBUG:   logLevelString = "DEBUG";
-            case TRACE:   logLevelString = "TRACE";
+            case ERROR:
+                logLevelString = "ERROR";
+                break;
+            case WARNING: 
+                logLevelString = "WARNING";
+                break;
+            case INFO:    
+                logLevelString = "INFO";
+                break;
+            case DEBUG:   
+                logLevelString = "DEBUG";
+                break;
+            case TRACE:   
+                logLevelString = "TRACE";
+                break;
         }
 
         return "[" + logLevelString + "] ";
