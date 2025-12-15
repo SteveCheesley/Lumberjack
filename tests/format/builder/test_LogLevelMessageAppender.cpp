@@ -6,6 +6,7 @@ class LogLevelMessageAppenderTest : public testing::Test
     protected:
         std::unique_ptr<lumberjack::format::LogMessageFormat> testFormatSpecification;
         std::unique_ptr<lumberjack::format::builder::MessageBuilderInput> testBuildMessageInput;
+        lumberjack::LogLevel defaultInputLogLevel = lumberjack::LogLevel::INFO;
 
         void SetUp() override
         {
@@ -18,7 +19,7 @@ class LogLevelMessageAppenderTest : public testing::Test
 
             testBuildMessageInput = std::make_unique<lumberjack::format::builder::MessageBuilderInput>(
                 typeid(LogLevelMessageAppenderTest),
-                lumberjack::LogLevel::INFO
+                defaultInputLogLevel
             );
         }
 };
