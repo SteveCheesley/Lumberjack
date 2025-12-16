@@ -2,7 +2,6 @@
 #include <ctime>
 #include <chrono>
 #include <iomanip>
-// #include <iostream>
 #include "lumberjack/format/DefaultLogFormatter.h"
 #include "lumberjack/time/SystemTimeProvider.h"
 
