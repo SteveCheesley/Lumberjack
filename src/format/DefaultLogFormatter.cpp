@@ -42,7 +42,7 @@ namespace lumberjack::format
         LogMessageFormat logMessageFormat, 
         ITimeProvider* timeProvider,
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> messageBuilder)
-        : logMessageFormat(logMessageFormat), timeProvider(timeProvider), messageBuilder(messageBuilder) // TODO - Need to fix this - not sure how
+        : logMessageFormat(logMessageFormat), timeProvider(timeProvider), messageBuilder(std::move(messageBuilder))
     {
     }
 
