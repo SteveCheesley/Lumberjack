@@ -5,6 +5,11 @@
 #include "lumberjack/format/DefaultLogFormatter.h"
 #include "lumberjack/time/SystemTimeProvider.h"
 
+#include "lumberjack/format/builder/DateMessageAppender.h"
+#include "lumberjack/format/builder/TimeMessageAppender.h"
+#include "lumberjack/format/builder/SourceMessageAppender.h"
+#include "lumberjack/format/builder/LogLevelMessageAppender.h"
+
 using lumberjack::time::SystemTimeProvider;
 
 namespace lumberjack::format
@@ -15,79 +20,47 @@ namespace lumberjack::format
     }
 
     DefaultLogFormatter::DefaultLogFormatter(LogMessageFormat logMessageFormat) 
-        : DefaultLogFormatter(logMessageFormat, new SystemTimeProvider())
+        : DefaultLogFormatter(logMessageFormat, 
+            new SystemTimeProvider(), 
+            std::make_unique<lumberjack::format::builder::DateMessageAppender>(logMessageFormat))
     {
+        std::unique_ptr<lumberjack::format::builder::TimeMessageAppender> timeAppender = 
+        std::make_unique<lumberjack::format::builder::TimeMessageAppender>(logMessageFormat);
+
+        std::unique_ptr<lumberjack::format::builder::SourceMessageAppender> sourceAppender = 
+        std::make_unique<lumberjack::format::builder::SourceMessageAppender>(logMessageFormat);
+
+        std::unique_ptr<lumberjack::format::builder::LogLevelMessageAppender> logLevelAppender = 
+        std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
+
+        sourceAppender->setNext(logLevelAppender.get());
+        timeAppender->setNext(sourceAppender.get());
+        messageBuilder.get()->setNext(timeAppender.get());
     }
 
     DefaultLogFormatter::DefaultLogFormatter(
         LogMessageFormat logMessageFormat, 
-        ITimeProvider* timeProvider)
-        : logMessageFormat(logMessageFormat), timeProvider(timeProvider)
+        ITimeProvider* timeProvider,
+        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> messageBuilder)
+        : logMessageFormat(logMessageFormat), timeProvider(timeProvider), messageBuilder(messageBuilder) // TODO - Need to fix this - not sure how
     {
     }
 
+    /*
+     * TODO - Need a proper destructor
+     */
+
     std::string DefaultLogFormatter::formatMessage(std::type_index source, LogLevel logLevel, std::string message)
     {
-        std::string output = "";
-
-        std::string dateString = "";
-        std::string timeString = "";
-        std::string sourceString = "";
-
-        if (logMessageFormat.isDatePrinted()) {
-            // Append the date
-            std::chrono::system_clock::time_point now = timeProvider->now();
-            std::time_t time = std::chrono::system_clock::to_time_t(now);
-
-            // Convert to UTC-based tm structure
-            std::tm* utc_time = std::gmtime(&time);
-
-            // Use this string stream to build the entire output
-            std::ostringstream dateStringStream;
-            dateStringStream << std::put_time(utc_time, "%Y-%m-%d");
-
-            dateString = dateStringStream.str();
-        }
-
-        // NOTE: This code is terrible, but I want to understand better how time_point works..
-        // TODO - This needs to go in a private method - This could actually be a design pattern - better
-        if (logMessageFormat.isTimePrinted()) {
-            // Append the date
-            std::chrono::system_clock::time_point now = timeProvider->now();
-            std::time_t time = std::chrono::system_clock::to_time_t(now);
-
-            // Convert to UTC-based tm structure
-            std::tm* utc_time = std::gmtime(&time);
-
-            // Use this string stream to build the entire output
-            std::ostringstream timeStringStream;
-            timeStringStream << std::put_time(utc_time, "%H:%M:%S");
-
-            timeString = timeStringStream.str();
-        }
-
-        if (logMessageFormat.isSourcePrinted()) {
-            // This is passed in / processed as a type_index
-        }
-
-        // I'm seriously thinking COR for this logic
-        std::string logLevelString = "";
-
-        switch (logLevel) {
-            case ERROR:   logLevelString = "ERROR";
-            case WARNING: logLevelString = "WARNING";
-            case INFO:    logLevelString = "INFO";
-            case DEBUG:   logLevelString = "DEBUG";
-            case TRACE:   logLevelString = "TRACE";
-        }
-
-        // TODO - figure out why this always picks trace, regardless of what I give it
-
-        output = dateString + " " + 
-                 timeString + " " + 
-                 "[" + logLevelString + "] " +
-                 sourceString + message;
+        lumberjack::format::builder::MessageBuilderInput input(
+            source,
+            logLevel
+        );
         
+        std::string output = messageBuilder->buildMessage(&input);
+
+        output = output + message;
+
         return output;
     }
 };
