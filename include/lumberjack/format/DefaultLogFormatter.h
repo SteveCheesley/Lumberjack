@@ -24,6 +24,10 @@ namespace lumberjack::format
             DefaultLogFormatter(LogMessageFormat LogMessageFormat);
             DefaultLogFormatter(
                 LogMessageFormat LogMessageFormat, 
+                ITimeProvider* timeProvider
+            );
+            DefaultLogFormatter(
+                LogMessageFormat LogMessageFormat, 
                 ITimeProvider* timeProvider, 
                 std::unique_ptr<lumberjack::format::builder::IMessageBuilder> messageBuilder
             );
