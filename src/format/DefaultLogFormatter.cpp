@@ -33,19 +33,18 @@ namespace lumberjack::format
             timeProvider, 
             std::make_unique<lumberjack::format::builder::DateMessageAppender>(logMessageFormat)) 
     {
-        std::cout << "..:: SC-DEBUG :: Begin initialisation (2param)..." << std::endl;
-        std::unique_ptr<lumberjack::format::builder::TimeMessageAppender> timeAppender = 
+        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> timeAppender = 
         std::make_unique<lumberjack::format::builder::TimeMessageAppender>(logMessageFormat);
 
-        std::unique_ptr<lumberjack::format::builder::SourceMessageAppender> sourceAppender = 
+        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> sourceAppender = 
         std::make_unique<lumberjack::format::builder::SourceMessageAppender>(logMessageFormat);
 
-        std::unique_ptr<lumberjack::format::builder::LogLevelMessageAppender> logLevelAppender = 
+        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> logLevelAppender = 
         std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
 
-        sourceAppender->setNext(logLevelAppender.get());
-        timeAppender->setNext(sourceAppender.get());
-        messageBuilder.get()->setNext(timeAppender.get());
+        sourceAppender->setNext(logLevelAppender);
+        timeAppender->setNext(sourceAppender);
+        messageBuilder->setNext(timeAppender);
         std::cout << "..:: SC-DEBUG :: End initialisation (2param)" << std::endl;
     }
 

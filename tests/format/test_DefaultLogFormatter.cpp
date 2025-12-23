@@ -4,6 +4,8 @@
 #include "lumberjack/format/DefaultLogFormatter.h"
 #include "../time/MockTimeProvider.h"
 
+#include <iostream>
+
 using lumberjack::format::DefaultLogFormatter;
 using lumberjack::format::ILogFormatter;
 using lumberjack::time::ITimeProvider;
@@ -36,7 +38,16 @@ TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
         LogMessageFormat(true, true, true, true), 
         mockTimeProvider);
     
-    std::string result = subject->formatMessage(typeid(DefaultLogFormatterTest), LogLevel::INFO, "Hello World!");
+    std::cout << "..::: SC-TEST :: Subject initialised!" << std::endl;
+
+    std::cout << "..::: SC-TEST :: Begin formatting..." << std::endl;
+    std::string result = subject->formatMessage(
+        typeid(DefaultLogFormatterTest), 
+        LogLevel::INFO, 
+        "Hello World!"
+    );
+
+    std::cout << "..::: SC-TEST :: Formatting complete!" << std::endl;
 
     EXPECT_EQ(result, "2025-10-04 20:39.921 [INFO] Hello, World!");
 };
@@ -47,7 +58,10 @@ TEST_P(DefaultLogFormatterTest, FormatsOutputBasedOnConfiguration) {
         testParameters.logFormat, 
         mockTimeProvider);
     
-    std::string result = subject->formatMessage(typeid(DefaultLogFormatterTest), LogLevel::INFO, "Hello World!");
+    std::string result = subject->formatMessage(
+        typeid(DefaultLogFormatterTest), 
+        LogLevel::INFO, 
+        "Hello World!");
 
     EXPECT_EQ(result, testParameters.expectedOutput);
 }
