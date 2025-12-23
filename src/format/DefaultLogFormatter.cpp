@@ -37,10 +37,10 @@ namespace lumberjack::format
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> sourceAppender = 
         std::make_unique<lumberjack::format::builder::SourceMessageAppender>(logMessageFormat);
 
-        // std::unique_ptr<lumberjack::format::builder::IMessageBuilder> logLevelAppender = 
-        // std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
+        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> logLevelAppender = 
+        std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
 
-        // sourceAppender->setNext(logLevelAppender);
+        sourceAppender->setNext(logLevelAppender);
         timeAppender->setNext(sourceAppender);
         messageBuilder->setNext(timeAppender);
     }
