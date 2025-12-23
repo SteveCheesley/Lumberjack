@@ -2,9 +2,9 @@
 
 namespace lumberjack::format::builder
 {
-    IMessageBuilder *AbstractMessageBuilder::setNext(IMessageBuilder *messageBuilder)
+    std::unique_ptr<IMessageBuilder>& AbstractMessageBuilder::setNext(std::unique_ptr<IMessageBuilder> &messageBuilder)
     {
-        this->nextHandler = messageBuilder;
+        this->nextHandler = std::move(messageBuilder);
         return messageBuilder;
     }
 
@@ -14,6 +14,11 @@ namespace lumberjack::format::builder
 
         if (this->nextHandler)
         {
+            // TODO - This is where the segmentation faul happens - Need to debug and find out why!
+            /* Hypothesis - nextHandler is a raw pointer, and it isn't cleared after the last set
+             * If a smart pointer was used to load the next value but it was subsequently cleared
+             * That might explain a segmentation fault - think - what happens on the last link?
+             */
             message = this->nextHandler->buildMessage(input);
         }
 
