@@ -29,10 +29,10 @@ namespace lumberjack::format
     : DefaultLogFormatter(
             logMessageFormat, 
             timeProvider, 
-            std::make_unique<lumberjack::format::builder::DateMessageAppender>(logMessageFormat)) 
+            std::make_unique<lumberjack::format::builder::DateMessageAppender>(logMessageFormat, timeProvider)) 
     {
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> timeAppender = 
-        std::make_unique<lumberjack::format::builder::TimeMessageAppender>(logMessageFormat);
+        std::make_unique<lumberjack::format::builder::TimeMessageAppender>(logMessageFormat, timeProvider);
 
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> sourceAppender = 
         std::make_unique<lumberjack::format::builder::SourceMessageAppender>(logMessageFormat);
@@ -56,7 +56,6 @@ namespace lumberjack::format
     /*
      * TODO - Need a proper destructor
      */
-
     std::string DefaultLogFormatter::formatMessage(std::type_index source, LogLevel logLevel, std::string message)
     {
         lumberjack::format::builder::MessageBuilderInput input(
