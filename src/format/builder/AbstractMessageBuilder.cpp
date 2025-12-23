@@ -12,19 +12,14 @@ namespace lumberjack::format::builder
     {
         std::string message = "";
 
-        if (this->nextHandler)
-        {
-            // TODO - This is where the segmentation faul happens - Need to debug and find out why!
-            /* Hypothesis - nextHandler is a raw pointer, and it isn't cleared after the last set
-             * If a smart pointer was used to load the next value but it was subsequently cleared
-             * That might explain a segmentation fault - think - what happens on the last link?
-             */
-            message = this->nextHandler->buildMessage(input);
-        }
-
         if (this->canAddToMessage())
         {
-            message = message + this->doMessageBuild(input);
+            message = this->doMessageBuild(input);
+        }
+
+        if (this->nextHandler)
+        {
+            message = message + this->nextHandler->buildMessage(input);
         }
 
         return message;
