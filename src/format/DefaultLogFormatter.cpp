@@ -10,8 +10,6 @@
 #include "lumberjack/format/builder/SourceMessageAppender.h"
 #include "lumberjack/format/builder/LogLevelMessageAppender.h"
 
-#include <iostream> // TEMP
-
 using lumberjack::time::SystemTimeProvider;
 
 namespace lumberjack::format
@@ -39,13 +37,12 @@ namespace lumberjack::format
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> sourceAppender = 
         std::make_unique<lumberjack::format::builder::SourceMessageAppender>(logMessageFormat);
 
-        std::unique_ptr<lumberjack::format::builder::IMessageBuilder> logLevelAppender = 
-        std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
+        // std::unique_ptr<lumberjack::format::builder::IMessageBuilder> logLevelAppender = 
+        // std::make_unique<lumberjack::format::builder::LogLevelMessageAppender>(logMessageFormat);
 
-        sourceAppender->setNext(logLevelAppender);
+        // sourceAppender->setNext(logLevelAppender);
         timeAppender->setNext(sourceAppender);
         messageBuilder->setNext(timeAppender);
-        std::cout << "..:: SC-DEBUG :: End initialisation (2param)" << std::endl;
     }
 
     DefaultLogFormatter::DefaultLogFormatter(
@@ -54,8 +51,6 @@ namespace lumberjack::format
         std::unique_ptr<lumberjack::format::builder::IMessageBuilder> messageBuilder)
         : logMessageFormat(logMessageFormat), timeProvider(timeProvider), messageBuilder(std::move(messageBuilder))
     {
-        std::cout << "..:: SC-DEBUG :: Begin initialisation (3param)..." << std::endl;
-        std::cout << "..:: SC-DEBUG :: End initialisation (3param)" << std::endl;
     }
 
     /*

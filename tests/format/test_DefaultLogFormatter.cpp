@@ -35,19 +35,14 @@ class DefaultLogFormatterTest : public ::testing::TestWithParam<TestParameters> 
 
 TEST_F(DefaultLogFormatterTest, BasicSuccessTest) {
     ILogFormatter* subject = new DefaultLogFormatter(
-        LogMessageFormat(true, true, true, true), 
+        LogMessageFormat(true, true, true, false), 
         mockTimeProvider);
-    
-    std::cout << "..::: SC-TEST :: Subject initialised!" << std::endl;
 
-    std::cout << "..::: SC-TEST :: Begin formatting..." << std::endl;
     std::string result = subject->formatMessage(
         typeid(DefaultLogFormatterTest), 
         LogLevel::INFO, 
         "Hello World!"
     );
-
-    std::cout << "..::: SC-TEST :: Formatting complete!" << std::endl;
 
     EXPECT_EQ(result, "2025-10-04 20:39.921 [INFO] Hello, World!");
 };
