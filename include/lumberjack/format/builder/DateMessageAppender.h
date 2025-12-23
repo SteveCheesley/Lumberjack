@@ -11,7 +11,7 @@ namespace lumberjack::format::builder
     {
         private:
             lumberjack::time::ITimeProvider* timeProvider;
-            const LogMessageFormat &logMessageFormat;
+            const LogMessageFormat logMessageFormat;
         protected:
             bool canAddToMessage() override final;
             std::string doMessageBuild(MessageBuilderInput* input) override final;

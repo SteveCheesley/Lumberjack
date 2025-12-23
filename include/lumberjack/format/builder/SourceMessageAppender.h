@@ -9,7 +9,7 @@ namespace lumberjack::format::builder
     class SourceMessageAppender : public AbstractMessageBuilder
     {
         private:
-            const lumberjack::format::LogMessageFormat &logMessageFormat;
+            const lumberjack::format::LogMessageFormat logMessageFormat;
             std::string demangleTypeIndex(const char *sourceName);
             std::string getClassNameFromDemangledString(std::string demangledString);
             int countCurlyBraces(std::string demangledString);
