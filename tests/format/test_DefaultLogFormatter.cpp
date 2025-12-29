@@ -52,6 +52,10 @@ INSTANTIATE_TEST_SUITE_P(
     DefaultLogFormatterTest,
     ::testing::Values(
         TestParameters{
+            LogMessageFormat(true, true, true, true), 
+            "2024-01-06 18:06:24 DefaultLogFormatterTest [INFO] Hello World!"
+        },
+        TestParameters{
             LogMessageFormat(true, true, true, false), 
             "2024-01-06 18:06:24 [INFO] Hello World!"
         },
