@@ -24,6 +24,12 @@ You can also run all tests in a specifc test suite by using a wildcard specifier
 ./test.sh -t SourceMessageAppenderTest.*
 ```
 
+If you want to execute procedural tests, don't forget to prefix with the data set name like this...
+
+```bash
+./test.sh -t MessageFormatCases/DefaultLogFormatterTest.*
+```
+
 ### Debugging / Breakpointing Tests
 
 This project supports the ability to add breakpoints to unit tests and debug them. This makes troubleshooting issues much more straightforward. This is achieved through a combination of 
