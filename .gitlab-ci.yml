@@ -1,7 +1,7 @@
 stages:
-  - build
+  - cmake-init
 
-build-job:
-  stage: build
+cmake-init:
+  stage: cmake-init
   script:
-    - echo "Hello from CI on Raspberry Pi"
+    - ./build-init.sh
