@@ -87,6 +87,10 @@ With the build executed successfully you are free to debug.
 #### Step 3: Place breakpoint and run test
 Finally, simply go to the run and debug sidebar menu and select the desired new debug profile and run. Be sure to add your desired breakpoint before you execute!
 
+# Tags
+
+1. `latest` - This tag represents the last "working" state of the project. These changes are bleeding edge, so whilst it builds and tests all pass, there may be unforseen bugs.
+
 # Notes
 A collection of development notes that I have made during work on the library
 
