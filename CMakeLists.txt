@@ -91,3 +91,20 @@ if(LUMBERJACK_BUILD_TESTS)
     gtest_discover_tests(lumberjack_tests)
 endif()
 
+# ---------------------------------------------------------------
+#   Clang Tidy "Linter" Settings
+# ---------------------------------------------------------------
+option(ENABLE_CLANG_TIDY "Enable clang-tidy analysis" OFF)
+
+if(ENABLE_CLANG_TIDY)
+    find_program(CLANG_TIDY_EXE clang-tidy)
+    if(CLANG_TIDY_EXE)
+        message(STATUS "clang-tidy enabled")
+        set(CMAKE_CXX_CLANG_TIDY
+            ${CLANG_TIDY_EXE};
+            --quiet
+        )
+    else()
+        message(WARNING "clang-tidy requested but not found")
+    endif()
+endif()

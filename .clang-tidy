@@ -1,0 +1,50 @@
+# .clang-tidy
+---
+Checks: >
+  clang-analyzer-*,
+  bugprone-*,
+  performance-*,
+  modernize-*,
+  cppcoreguidelines-*,
+  readability-*,
+  -cppcoreguidelines-avoid-magic-numbers,
+  -readability-magic-numbers
+
+WarningsAsErrors: ''
+
+HeaderFilterRegex: 'src/.*'
+
+AnalyzeTemporaryDtors: false
+
+CheckOptions:
+  # Force value semantics
+  - key: cppcoreguidelines-special-member-functions.RequireMove
+    value: true
+
+  # Catch missing const (VERY common Java habit)
+  - key: readability-const-return-type
+    value: true
+
+  # Prefer stack allocation
+  - key: cppcoreguidelines-owning-memory
+    value: true
+
+  # Disallow raw new/delete
+  - key: cppcoreguidelines-no-malloc
+    value: true
+
+  # Encourage RAII
+  - key: cppcoreguidelines-no-manual-memory-management
+    value: true
+
+  # Reduce unnecessary heap usage
+  - key: performance-unnecessary-value-param
+    value: true
+
+  # Encourage range-based loops
+  - key: modernize-loop-convert
+    value: true
+
+  # Enforce member initialization
+  - key: cppcoreguidelines-pro-type-member-init
+    value: true
