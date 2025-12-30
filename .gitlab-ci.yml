@@ -4,4 +4,4 @@ stages:
 cmake-init:
   stage: cmake-init
   script:
-    - ./build-init.sh
+    - ./build_init.sh
