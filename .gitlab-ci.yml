@@ -42,6 +42,6 @@ unit-test-format-builder:
     TEST_SUITES: DateMessageAppenderTest.*:LogLevelMessageAppenderTest.*:SourceMessageAppenderTest.*:TimeMessageAppenderTest.*
 
 unit-test-log-format:
-  extends: .unit_teest_template
+  extends: .unit_test_template
   variables:
     TEST_SUITES: MessageFormatCases/DefaultLogFormatterTest.*
