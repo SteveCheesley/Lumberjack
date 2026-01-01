@@ -1,13 +1,9 @@
 stages:
-  - build
+  - compile
 
-# This will be a job that runs in a stage - There can be multiple jobs that run in stages
-cmake-init:
-  stage: build
+# Validate that all library code passes basic compilation
+cmake-compile:
+  stage: compile
   script:
     - ./build_init.sh
-
-cmake-build:
-  stage: build
-  script:
     - ./build.sh
