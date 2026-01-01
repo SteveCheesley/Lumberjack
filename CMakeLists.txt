@@ -9,7 +9,7 @@ project(lumberjack
 # ---------------------------------------------------------------
 #   Compiler and build settings
 # ---------------------------------------------------------------
-option(LUMBERJACK_BUILD_TESTS "Build unit tests" ON)
+option(LUMBERJACK_BUILD_TESTS "Build unit tests" OFF)
 set(CMAKE_GENERATOR "Ninja")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)

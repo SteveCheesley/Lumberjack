@@ -2,6 +2,7 @@
 
 # Compile sources (both lib and test)
 echo "..:: Building resources to include latest changes ::.."
+./build_init.sh -t
 ./build.sh
 
 # Initialise Variables
