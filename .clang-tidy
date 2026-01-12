@@ -7,14 +7,12 @@ Checks: >
   modernize-*,
   cppcoreguidelines-*,
   readability-*,
-  -cppcoreguidelines-avoid-magic-numbers,
-  -readability-magic-numbers
+  cppcoreguidelines-avoid-magic-numbers,
+  readability-magic-numbers
 
 WarningsAsErrors: ''
 
 HeaderFilterRegex: 'src/.*'
-
-AnalyzeTemporaryDtors: false
 
 CheckOptions:
   # Force value semantics
