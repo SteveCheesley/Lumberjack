@@ -10,7 +10,7 @@ echo "..:: Cleaning the "build/" directory... ::.."
 rm -frv build
 
 # Prepare the automated build instructions (CMake)
-while getopts "dt" option; do
+while getopts "dtl" option; do
     case $option in
         d)
          echo "* Adding DEBUG build instructions..."
@@ -19,6 +19,10 @@ while getopts "dt" option; do
         t)
          echo "* Adding 'Unit Test' build instructions..."
          cmake_options="$cmake_options -DLUMBERJACK_BUILD_TESTS=ON"
+         ;;
+        l)
+         echo "* Adding 'Clang Tidy [linter]' build instructions..."
+         cmake_options="$cmake_options -DENABLE_CLANG_TIDY=ON"
          ;;
     esac
 done
