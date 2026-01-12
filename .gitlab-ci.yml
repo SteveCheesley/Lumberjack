@@ -1,12 +1,14 @@
 stages:
   - compile
+  - lint
+  - compile
   - unit-test
 
 variables:
   BUILD_DIR: build
 
 # -----------------------------------------
-# Stage 1: Library Compilation Validation
+# Stage 3: Library Compilation Validation
 # -----------------------------------------
 cmake-compile:
   stage: compile
@@ -15,7 +17,16 @@ cmake-compile:
     - ./build.sh
 
 # -----------------------------------------
-# Stage 2: Unit Testing
+# Stage 2: Linter Execution
+# -----------------------------------------
+clang-tidy:
+  stage: lint
+  script:
+    - ./linter.sh
+  allow_failure: true
+
+# -----------------------------------------
+# Stage 3: Unit Testing
 # -----------------------------------------
 test-compile:
   stage: unit-test
