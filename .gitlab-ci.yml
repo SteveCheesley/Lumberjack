@@ -1,0 +1,58 @@
+stages:
+  - compile
+  - lint
+  - compile
+  - unit-test
+
+variables:
+  BUILD_DIR: build
+
+# -----------------------------------------
+# Stage 3: Library Compilation Validation
+# -----------------------------------------
+cmake-compile:
+  stage: compile
+  script:
+    - ./build_init.sh
+    - ./build.sh
+
+# -----------------------------------------
+# Stage 2: Linter Execution
+# -----------------------------------------
+clang-tidy:
+  stage: lint
+  script:
+    - ./linter.sh
+  allow_failure: true
+
+# -----------------------------------------
+# Stage 3: Unit Testing
+# -----------------------------------------
+test-compile:
+  stage: unit-test
+  script:
+    - ./build_init.sh -t
+    - ./build.sh
+  artifacts:
+    name: "compiled-code-with-tests"
+    paths:
+      - ${BUILD_DIR}/
+    expire_in: 1 hour
+
+.unit_test_template:
+  stage: unit-test
+  needs:
+    - job: test-compile
+      artifacts: true
+  script:
+    - ./test.sh -s -t ${TEST_SUITES}
+
+unit-test-format-builder:
+  extends: .unit_test_template
+  variables:
+    TEST_SUITES: DateMessageAppenderTest.*:LogLevelMessageAppenderTest.*:SourceMessageAppenderTest.*:TimeMessageAppenderTest.*
+
+unit-test-log-format:
+  extends: .unit_test_template
+  variables:
+    TEST_SUITES: MessageFormatCases/DefaultLogFormatterTest.*

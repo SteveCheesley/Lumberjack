@@ -9,11 +9,28 @@ project(lumberjack
 # ---------------------------------------------------------------
 #   Compiler and build settings
 # ---------------------------------------------------------------
-option(LUMBERJACK_BUILD_TESTS "Build unit tests" ON)
+option(LUMBERJACK_BUILD_TESTS "Build unit tests" OFF)
+option(ENABLE_CLANG_TIDY "Enable clang-tidy analysis" OFF)
 set(CMAKE_GENERATOR "Ninja")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)   # Disable compiler-specific extensions (like gnu++20)
+
+# ---------------------------------------------------------------
+#   Clang Tidy "Linter" Settings
+# ---------------------------------------------------------------
+if(ENABLE_CLANG_TIDY)
+    find_program(CLANG_TIDY_EXE clang-tidy)
+    if(CLANG_TIDY_EXE)
+        message(STATUS "clang-tidy enabled")
+        set(CMAKE_CXX_CLANG_TIDY
+            ${CLANG_TIDY_EXE};
+            --quiet
+        )
+    else()
+        message(WARNING "clang-tidy requested but not found")
+    endif()
+endif()
 
 # ---------------------------------------------------------------
 #   Library target
@@ -90,4 +107,3 @@ if(LUMBERJACK_BUILD_TESTS)
     include(GoogleTest)
     gtest_discover_tests(lumberjack_tests)
 endif()
-

@@ -1,15 +1,12 @@
 #!/bin/bash
 
-# Compile sources (both lib and test)
-echo "..:: Building resources to include latest changes ::.."
-./build.sh
-
 # Initialise Variables
 t_arg=""
 l_flag=0
+build_skip=0
 
 # Parse the options
-while getopts "t:l" opt; do
+while getopts "t:ls" opt; do
   case $opt in
     t)
       t_arg=$OPTARG
@@ -17,8 +14,19 @@ while getopts "t:l" opt; do
     l)
       l_flag=1
       ;;
+    s)
+      build_skip=1
+      ;;
   esac
 done
+
+# Compile sources (both lib and test) - [unless skipped]
+if [ $build_skip -eq 0 ]; then
+  echo "..:: Building resources to include latest changes ::.."
+  ./build_init.sh -t
+  ./build.sh
+fi
+
 
 # Determine the operation based on the flags provided
 if [ $l_flag -eq 1 ]; then
