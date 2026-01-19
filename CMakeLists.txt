@@ -40,6 +40,7 @@ file(GLOB SOURCES CONFIGURE_DEPENDS
     src/*.cpp
     src/format/*.cpp
     src/format/builder/*.cpp
+    src/writer/*.cpp
     src/time/*.cpp
 )
 
