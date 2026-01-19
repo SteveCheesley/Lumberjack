@@ -9,6 +9,7 @@ namespace lumberjack::writer
     {
         public:
             virtual void writeToLog(const std::string& entry) = 0;
+            ILogWriter() = default;
             virtual ~ILogWriter() = default;
 
             ILogWriter(const ILogWriter&) = delete;
