@@ -8,6 +8,7 @@ namespace lumberjack::writer
     class StandardOutputWriter : public ILogWriter
     {
         public:
+            StandardOutputWriter() = default;
             void writeToLog(const std::string& entry) override;
     };
 }
