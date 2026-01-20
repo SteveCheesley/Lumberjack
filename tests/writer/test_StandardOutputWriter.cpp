@@ -10,5 +10,6 @@ TEST(StandardOutputWriterTest, BasicSuccessTest) {
     subject.writeToLog(test_input);
     
     std::string output = testing::internal::GetCapturedStdout();
-    EXPECT_EQ(output, test_input);
+    std::string expectedOutput = test_input + "\n";
+    EXPECT_EQ(output, expectedOutput);
 }

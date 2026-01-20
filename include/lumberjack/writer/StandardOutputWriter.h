@@ -7,8 +7,11 @@ namespace lumberjack::writer
 {
     class StandardOutputWriter : public ILogWriter
     {
+        private:
+            bool prints_line_break = true;
         public:
             StandardOutputWriter() = default;
+            StandardOutputWriter(bool printsLineBreak);
             void writeToLog(const std::string& entry) override;
     };
 }
