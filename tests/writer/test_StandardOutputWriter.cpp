@@ -21,6 +21,5 @@ TEST(StandardOutputWriterTest, NoLineBreakTest) {
     subject.writeToLog(test_input);
     
     std::string output = testing::internal::GetCapturedStdout();
-    std::string expectedOutput = test_input;
-    EXPECT_EQ(output, expectedOutput);
+    EXPECT_EQ(output, test_input);
 }
