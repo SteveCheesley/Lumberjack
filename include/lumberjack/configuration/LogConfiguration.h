@@ -14,14 +14,14 @@ namespace lumberjack::configuration
     {
         private:
             std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> logWriters_;
-            LogLevel maximumLogLevel_;
+            lumberjack::LogLevel maximumLogLevel_;
             std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter_;
         public:
             LogConfiguration(
-                LogLevel maximumLogLevel, 
+                lumberjack::LogLevel maximumLogLevel, 
                 std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
                 std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> logWriters);
-            void log(std::type_index source, LogLevel logLevel, std::string message);
+            void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message);
     };
 }
 
