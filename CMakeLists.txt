@@ -42,6 +42,7 @@ file(GLOB SOURCES CONFIGURE_DEPENDS
     src/format/builder/*.cpp
     src/writer/*.cpp
     src/time/*.cpp
+    src/configuration/*.cpp
 )
 
 add_library(lumberjack STATIC ${SOURCES})
