@@ -19,14 +19,9 @@ namespace lumberjack::writer
                 this->linesWritten_.push_back(entry);
             }
 
-            [[nodiscard]] auto getInvocationCount() const
+            const std::vector<std::string>* getLinesWritten() const
             {
-                return this->linesWritten_.size();
-            }
-
-            [[nodiscard]] auto getEntry(int index) const
-            {
-                return this->linesWritten_[index];
+                return &this->linesWritten_;
             }
     };
 }
