@@ -24,6 +24,10 @@ TEST(LogConfigurationTest, BasicSuccessTest) {
     // TODO - I need to put in code that verifies calls correctly
     std::size_t numberOfLinesWritten = linesWritten->size();
     EXPECT_EQ(1, numberOfLinesWritten);
+
+    // ..:: Cleanup
+    delete linesWritten;
+    linesWritten = nullptr;
     
     // TODO - Turn this into a parameterised test to validate actions such as resources being missing
 }
