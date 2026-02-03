@@ -4,26 +4,50 @@
 #include "../format/MockLogFormatter.h"
 #include "../writer/MockLogWriter.h"
 
-TEST(LogConfigurationTest, BasicSuccessTest) {
-    std::string formattedLogOutput = "..:: sample log output ::..";
-    std::unique_ptr<lumberjack::format::ILogFormatter> mockLogFormatter = 
-        std::make_unique<lumberjack::format::MockLogFormatter>(formattedLogOutput);
+class LogConfigurationTest : public testing::Test {
+    protected:
+        std::unique_ptr<lumberjack::format::ILogFormatter> mockLogFormatter;
+        std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> mockLogWriters;
+        const std::vector<std::string>* linesWritten;
+
+        void SetUp() override 
+        {
+            /* --== Runs before each test is executed ==-- */
     
-    // Standalone initialisation of the mockLogWriter so I can extract the linesWritten from it.
-    std::unique_ptr<lumberjack::writer::MockLogWriter> mockLogWriter = 
-        std::make_unique<lumberjack::writer::MockLogWriter>();
-    const std::vector<std::string>* linesWritten = mockLogWriter->getLinesWritten(); // Need this to read the lines that were written to the mockLogWriter
+            // ..:: Mock Log Formatter
+            std::string formattedLogOutput = "..:: sample log output ::.."; // <- This will need to live somewhere else
+            mockLogFormatter = std::make_unique<lumberjack::format::MockLogFormatter>(formattedLogOutput);
+            
+            // ..:: Mock Log Writer
+            std::unique_ptr<lumberjack::writer::MockLogWriter> mockLogWriter = 
+                std::make_unique<lumberjack::writer::MockLogWriter>();
+            linesWritten = mockLogWriter->getLinesWritten();
+            // TODO - Add a reset function to the mockLogWriter
+            
+            mockLogWriters.push_back(std::move(mockLogWriter));
+        }
 
-    std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> mockLogWriters;
-    mockLogWriters.push_back(std::move(mockLogWriter));
+        void TearDown() override 
+        {
+            /* Runs after each test is complete */
+        }
+};
 
-    lumberjack::configuration::LogConfiguration subject(lumberjack::LogLevel::INFO, std::move(mockLogFormatter), std::move(mockLogWriters));
+TEST_F(LogConfigurationTest, BasicSuccessTest) {
+    lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::INFO, 
+        std::move(mockLogFormatter), 
+        std::move(mockLogWriters));
 
     subject.log(typeid(lumberjack::format::MockLogFormatter), lumberjack::LogLevel::INFO, "sample");
 
-    // TODO - I need to put in code that verifies calls correctly
+    // TEST - Validate that the mock formatter was used as expected
+    /* TODO */
+
+    // TEST - Validate that the mock writer(s) were used as expected
     std::size_t numberOfLinesWritten = linesWritten->size();
     EXPECT_EQ(1, numberOfLinesWritten);
+
     
     // TODO - Turn this into a parameterised test to validate actions such as resources being missing
 }
