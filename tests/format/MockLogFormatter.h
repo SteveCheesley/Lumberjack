@@ -22,9 +22,9 @@ namespace lumberjack::format
                 return this->expectedOutput_;
             }
 
-            [[nodiscard]] auto getInvocationCount() const
+            [[nodiscard]] auto* getInvocationCount() const
             {
-                return this->invocationCount_;
+                return &this->invocationCount_;
             }
     };
 }
