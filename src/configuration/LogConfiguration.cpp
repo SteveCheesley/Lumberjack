@@ -6,14 +6,15 @@ namespace lumberjack::configuration
     LogConfiguration::LogConfiguration(lumberjack::LogLevel maximumLogLevel,
                                        std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
                                        std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>>&& logWriters) 
-                                       : maximumLogLevel_(maximumLogLevel), 
-                                       logFormatter_(std::move(logFormatter))
+                                       : maximumLogLevel_(maximumLogLevel)
     {
         // Validate input pointers
         if (!logFormatter)
         {
             throw std::invalid_argument("logFormatter cannot be null!");
         }
+
+        logFormatter_ = std::move(logFormatter);
 
         for (const auto& logWriter: logWriters)
         {
@@ -28,12 +29,11 @@ namespace lumberjack::configuration
 
     void LogConfiguration::log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
     {
-        // TODO - Let's build this out now we have the desired unit test
+        std::string formattedOutput = this->logFormatter_->formatMessage(source, logLevel, message);
 
-        // [1] - Let's format the given input first
-
-
-        // [2] - Once we have formatted input let's dispatch it to every writer
-
+        for (const auto& logWriter : this->logWriters_)
+        {
+            logWriter->writeToLog(formattedOutput);
+        }
     }
 }
