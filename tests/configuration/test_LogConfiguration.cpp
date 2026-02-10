@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <vector>
 #include <map>
+#include <iostream>
 #include "lumberjack/configuration/LogConfiguration.h"
 #include "../format/MockLogFormatter.h"
 #include "../writer/MockLogWriter.h"
@@ -87,4 +88,41 @@ TEST_F(LogConfigurationTest, TestFormatterWriterWiring) {
     validateLogFormatterInvocations(1);
     validateLogWriterIsCalledWithEntry(simulatedFormattedLogOutput);
     validateLogWriterInvocations(1);
+}
+
+TEST_F(LogConfigurationTest, ValidateNullFormatter) {
+    try 
+    {
+        lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::INFO, 
+        nullptr, 
+        std::move(mockLogWriters));
+
+        std::cout << "Exception was expected to be thrown!\n";
+        FAIL();
+    } catch (const std::invalid_argument& expectedException)
+    {
+        std::cout << "Invalid Argument identified on null log formatter\n";
+        SUCCEED();   
+    }
+}
+
+TEST_F(LogConfigurationTest, ValidateNullWriter) {
+    std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> nullLogWriters;
+    nullLogWriters.push_back(nullptr);
+
+    try
+    {
+        lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::INFO, 
+        std::move(mockLogFormatter), 
+        std::move(nullLogWriters));
+
+        std::cout << "Exception was expected to be thrown!\n";
+        FAIL();
+    } catch (const std::invalid_argument& expectedException)
+    {
+        std::cout << "Invalid Argument identified on null log writer\n";
+        SUCCEED();   
+    }
 }
