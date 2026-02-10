@@ -3,22 +3,6 @@
 
 namespace lumberjack::configuration
 {
-    // MyClass(std::unique_ptr<int> ptr, const std::vector<int>& vec) {
-    //     // Check if unique_ptr is null
-    //     if (!ptr) {
-    //         throw std::invalid_argument("unique_ptr cannot be null");
-    //     }
-        
-    //     // Check if vector is empty
-    //     if (vec.empty()) {
-    //         throw std::invalid_argument("Vector cannot be empty");
-    //     }
-        
-    //     // If checks pass, proceed with initialization
-    //     m_ptr = std::move(ptr);
-    //     m_vec = vec;
-    // }
-
     LogConfiguration::LogConfiguration(lumberjack::LogLevel maximumLogLevel,
                                        std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
                                        std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>>&& logWriters) 
