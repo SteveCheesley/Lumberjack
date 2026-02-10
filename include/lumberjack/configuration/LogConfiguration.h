@@ -20,7 +20,7 @@ namespace lumberjack::configuration
             LogConfiguration(
                 lumberjack::LogLevel maximumLogLevel, 
                 std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
-                std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>> logWriters);
+                std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>>&& logWriters);
             void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message);
     };
 }
