@@ -127,7 +127,7 @@ TEST_F(LogConfigurationTest, ValidateNullWriter) {
     }
 }
 
-TEST_F(LogConfigurationTest, TestLogLevelMismatch) {
+TEST_F(LogConfigurationTest, TestLogLevelOutOfBounds) {
     lumberjack::configuration::LogConfiguration subject(
         lumberjack::LogLevel::ERROR, 
         std::move(mockLogFormatter), 
@@ -137,4 +137,16 @@ TEST_F(LogConfigurationTest, TestLogLevelMismatch) {
 
     validateLogFormatterInvocations(0);
     validateLogWriterInvocations(0);
+}
+
+TEST_F(LogConfigurationTest, TestLogLevelWithinBounds) {
+    lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::INFO, 
+        std::move(mockLogFormatter), 
+        std::move(mockLogWriters));
+
+    subject.log(typeid(lumberjack::format::MockLogFormatter), lumberjack::LogLevel::WARNING, "sample");
+
+    validateLogFormatterInvocations(1);
+    validateLogWriterInvocations(1);
 }
