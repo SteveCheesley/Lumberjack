@@ -29,6 +29,10 @@ namespace lumberjack::configuration
 
     void LogConfiguration::log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
     {
+        if (logLevel > this->maximumLogLevel_) {
+            return;
+        }
+
         std::string formattedOutput = this->logFormatter_->formatMessage(source, logLevel, message);
 
         for (const auto& logWriter : this->logWriters_)
