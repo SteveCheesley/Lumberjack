@@ -1,5 +1,5 @@
-#ifndef ILOGCONFIGURATION_H
-#define ILOGCONFIGURATION_H
+#ifndef LOGCONFIGURATION_H
+#define LOGCONFIGURATION_H
 
 #include <vector>
 #include <memory>
