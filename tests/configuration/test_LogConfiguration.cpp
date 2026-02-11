@@ -126,3 +126,15 @@ TEST_F(LogConfigurationTest, ValidateNullWriter) {
         SUCCEED();   
     }
 }
+
+TEST_F(LogConfigurationTest, TestLogLevelMismatch) {
+    lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::ERROR, 
+        std::move(mockLogFormatter), 
+        std::move(mockLogWriters));
+
+    subject.log(typeid(lumberjack::format::MockLogFormatter), lumberjack::LogLevel::INFO, "sample");
+
+    validateLogFormatterInvocations(0);
+    validateLogWriterInvocations(0);
+}
