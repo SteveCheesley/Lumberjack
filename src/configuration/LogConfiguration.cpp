@@ -2,7 +2,15 @@
 #include "lumberjack/configuration/LogConfiguration.h"
 
 namespace lumberjack::configuration
-{
+{   
+    LogConfiguration::LogConfiguration() 
+        : LogConfiguration(
+            lumberjack::LogLevel::WARNING,
+            std::move(getDefaultLogFormatter()),
+            std::move(getDefaultLogWriters())
+        )
+    {}
+
     LogConfiguration::LogConfiguration(lumberjack::LogLevel maximumLogLevel,
                                        std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
                                        std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>>&& logWriters) 
