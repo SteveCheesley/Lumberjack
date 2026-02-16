@@ -19,7 +19,7 @@ namespace lumberjack::configuration
             LogConfigurations(LogConfiguration defaultConfiguration, std::vector<LogConfiguration> configurations);
             void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message);
             void add(LogConfiguration LogConfiguration);
-            void clearAll();
+            void clearAllConfigurations();
     };
 }
 
