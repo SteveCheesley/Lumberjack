@@ -101,6 +101,7 @@ if(LUMBERJACK_BUILD_TESTS)
     target_link_libraries(lumberjack_tests PRIVATE
         lumberjack
         GTest::gtest_main
+        GTest::gmock_main
     )
 
     # Register the test with CTest
