@@ -50,7 +50,7 @@ test-compile:
 unit-test-log-configuration:
   extends: .unit_test_template
   variables:
-    TEST_SUITES: LogConfigurationTest.*
+    TEST_SUITES: LogConfigurationTest.*:LogConfigurationsTest.*
 
 unit-test-format-builder:
   extends: .unit_test_template
