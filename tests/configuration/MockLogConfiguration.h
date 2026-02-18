@@ -1,19 +1,24 @@
 #ifndef MOCKLOGCONFIGURATION_H
 #define MOCKLOGCONFIGURATION_H
 
-#include <gmock/gmock.h>
-#include "lumberjack/configuration/LogConfiguration.h"
+#include "lumberjack/LogLevel.h"
 
 namespace lumberjack::configuration
 {
-    class MockLogConfiguration : public LogConfiguration 
+    class MockLogConfiguration
     {
+        private:
+            int invocationCount_ = 0;
         public:
-            MOCK_METHOD(
-                void, 
-                log, 
-                (std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
-            );
+            void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
+            {
+                this->invocationCount_++;
+            }
+
+            [[nodiscard]] auto* getInvocationCount() const
+            {
+                return &this->invocationCount_;
+            }
     };
 }
 
