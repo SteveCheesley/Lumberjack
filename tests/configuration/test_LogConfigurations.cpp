@@ -55,7 +55,6 @@ TEST_F(LogConfigurationsTest, BasicSuccess)
 TEST_F(LogConfigurationsTest, IsDefaultCalledOnFallback) 
 {
     lumberjack::configuration::LogConfigurations<MockLogConfiguration> subject(defaultMockConfiguration);
-
     
     subject.log(
         typeid(MockLogConfiguration), 
@@ -65,4 +64,33 @@ TEST_F(LogConfigurationsTest, IsDefaultCalledOnFallback)
 
     validateDefaultConfigurationInvocations(1);
     validateConfigurationInvocations(0);
+}
+
+
+TEST_F(LogConfigurationsTest, AreConfigurationsClearedCorrectly) 
+{
+    lumberjack::configuration::LogConfigurations<MockLogConfiguration> subject(defaultMockConfiguration);
+
+    subject.add(mockLogConfiguration);
+ 
+    subject.log(
+        typeid(MockLogConfiguration), 
+        lumberjack::LogLevel::INFO, 
+        "sample"
+    );
+
+    validateDefaultConfigurationInvocations(0);
+    validateConfigurationInvocations(1);
+
+    // Clear the configurations
+    subject.clearAllConfigurations();
+
+    subject.log(
+        typeid(MockLogConfiguration), 
+        lumberjack::LogLevel::INFO, 
+        "sample"
+    );
+
+    validateDefaultConfigurationInvocations(1);
+    validateConfigurationInvocations(1);
 }
