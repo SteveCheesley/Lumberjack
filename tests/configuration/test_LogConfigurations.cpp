@@ -1,23 +1,68 @@
 #include <gtest/gtest.h>
 #include <gmock/gmock.h>
+#include <algorithm>
 
 #include "lumberjack/configuration/LogConfigurations.h"
 #include "../configuration/MockLogConfiguration.h"
 
 using ::testing::_;
+using lumberjack::configuration::MockLogConfiguration;
 
-TEST(LogConfigurationsTest, TestBasicSuccess) 
+class LogConfigurationsTest : public testing::Test {
+    protected:
+        MockLogConfiguration defaultMockConfiguration;
+        MockLogConfiguration mockLogConfiguration;
+
+        const int* defaultInvocationCount = defaultMockConfiguration.getInvocationCount();
+        const int* invocationCount = mockLogConfiguration.getInvocationCount();
+
+        void validateDefaultConfigurationInvocations(int expectedQty)
+        {
+            if (defaultInvocationCount == nullptr)
+            {
+                FAIL();
+            }
+
+            EXPECT_EQ(expectedQty, *defaultInvocationCount);
+        }
+
+        void validateConfigurationInvocations(int expectedQty)
+        {
+            if (invocationCount == nullptr)
+            {
+                FAIL();
+            }
+
+            EXPECT_EQ(expectedQty, *invocationCount);
+        }
+};
+
+TEST_F(LogConfigurationsTest, BasicSuccess) 
 {
-    lumberjack::configuration::LogConfigurations subject;
-    lumberjack::configuration::MockLogConfiguration mockLogConfiguration;
+    lumberjack::configuration::LogConfigurations<MockLogConfiguration> subject(defaultMockConfiguration);
 
-    EXPECT_CALL(mockLogConfiguration, log(_, _, _))
-      .Times(1);
-
-    subject.add(std::move(mockLogConfiguration));
+    subject.add(mockLogConfiguration);
     subject.log(
-        typeid(lumberjack::configuration::MockLogConfiguration), 
+        typeid(MockLogConfiguration), 
         lumberjack::LogLevel::INFO, 
         "sample"
     );
+
+    validateDefaultConfigurationInvocations(0);
+    validateConfigurationInvocations(1);
+}
+
+TEST_F(LogConfigurationsTest, IsDefaultCalledOnFallback) 
+{
+    lumberjack::configuration::LogConfigurations<MockLogConfiguration> subject(defaultMockConfiguration);
+
+    
+    subject.log(
+        typeid(MockLogConfiguration), 
+        lumberjack::LogLevel::INFO, 
+        "sample"
+    );
+
+    validateDefaultConfigurationInvocations(1);
+    validateConfigurationInvocations(0);
 }
