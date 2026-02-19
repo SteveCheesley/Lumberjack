@@ -2,22 +2,28 @@
 #define MOCKLOGCONFIGURATION_H
 
 #include "lumberjack/LogLevel.h"
+#include <iostream>
 
 namespace lumberjack::configuration
 {
     class MockLogConfiguration
     {
         private:
-            int invocationCount_ = 0;
+            std::shared_ptr<int> invocationCount_;
         public:
-            void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
+            MockLogConfiguration() 
             {
-                this->invocationCount_++;
+                this->invocationCount_ = std::make_shared<int>(0);
             }
 
-            [[nodiscard]] auto* getInvocationCount() const
+            void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
             {
-                return &this->invocationCount_;
+                ++(*this->invocationCount_);
+            }
+
+            [[nodiscard]] auto getInvocationCount()
+            {
+                return this->invocationCount_;
             }
     };
 }

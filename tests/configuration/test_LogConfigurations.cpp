@@ -2,6 +2,8 @@
 #include <gmock/gmock.h>
 #include <algorithm>
 
+#include <iostream>
+
 #include "lumberjack/configuration/LogConfigurations.h"
 #include "../configuration/MockLogConfiguration.h"
 
@@ -13,8 +15,14 @@ class LogConfigurationsTest : public testing::Test {
         MockLogConfiguration defaultMockConfiguration;
         MockLogConfiguration mockLogConfiguration;
 
-        const int* defaultInvocationCount = defaultMockConfiguration.getInvocationCount();
-        const int* invocationCount = mockLogConfiguration.getInvocationCount();
+        std::shared_ptr<int> defaultInvocationCount;
+        std::shared_ptr<int> invocationCount;
+
+        void SetUp() override 
+        {
+            defaultInvocationCount = defaultMockConfiguration.getInvocationCount();
+            invocationCount = mockLogConfiguration.getInvocationCount();
+        }
 
         void validateDefaultConfigurationInvocations(int expectedQty)
         {
