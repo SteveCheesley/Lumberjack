@@ -1,6 +1,6 @@
 <mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/29.0.3 Chrome/140.0.7339.249 Electron/38.7.0 Safari/537.36" version="29.0.3">
   <diagram name="Class Diagram" id="SmKHWKqtBj3rooVa6Wev">
-    <mxGraphModel dx="3167" dy="1202" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1922" dy="1236" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -216,6 +216,9 @@
         </mxCell>
         <mxCell id="xFbWbN_iQ98PUsdl_pN4-2" value="&lt;b&gt;11/02/2026&lt;/b&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Singleton is considered a code smell in modern C++&lt;br&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;To this extent the solution is to have LogConfigurations be created as a single instance by the application and then pass it as a constant reference.&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;const LogConfigurations&amp;amp;&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;is how this will look inside the Logger&lt;/div&gt;" style="shape=note2;boundedLbl=1;whiteSpace=wrap;html=1;size=25;verticalAlign=top;align=center;" parent="1" vertex="1">
           <mxGeometry x="320" y="450" width="270" height="260" as="geometry" />
+        </mxCell>
+        <mxCell id="07ViYmEZ-yhB4-DFnBdq-1" value="" style="shape=stencil(lVfLctswDPwaXTEEwec5Tf8jM3FqT90447ivvy9UDRkTkteTm0xjJYK7C4CTPLzvn952k3fvl/Pp++734fmyn+TL5P3hdb87Hy76NMnjJA8vp/Pu2/n08/V5+f32NEfOTz9Ov+Y3/FlwhcTPIO/+LgvZkcj/la9L/PHwehXPgSSPAKYMAN6TuBEQyFUAqO3vDigUwRckUh6/UAIEaNI1joBCjLfkZQQ4ihFsyRPzmIPcyyGNOaRIBWxJCoWRh1jIgS0FplhGgBJXACCSjDzoCkpa32e2JJkiA8AqaXEUACAxpXFLqi5OAFBt0qrf4m8DVJs1DIBO/Wa8Kk1Goj25DOKTfb+jBDIu1UrVkXO346uQYxMvKF5VNsZ3Erfju8g6ZZCxqgSMFGNZs+v5datRQhuqTWI9Ac0g4AxGlbJQBRTPRzRSxrqCtiT2jDiTAyqdSa4WIHdUZGSdKCOAynSVgwAfFL8CCDGoFoVbBe0ALZFoS0zOdB7K6JDY0hBhvStacJNxZkZOS9Y53Ba240tTzYfTGDnNr50J48P6/RU4p6pkisk3ofhqW1RshNyKN5Urw76v8dloVAWBjZmMbVRygOGaKI0Mz6JGR/pZwGxMk0Nt9fKm6EZR+9RWtvtNssOOjg7oCzqe+TEHbewOHGtS64/HGmo7hu2uXFtL7cJIsMZrGzdOSx5aP2rTNtZnyHTopaEDKqzZIVAyA1vGAG9nyIqLvKzK11Xr2h4ig62Q2igqYE6bgDnXue6DPanB7CAskIhAebT0XGSBNIR8tfHIP96ekY7NqDezLZFKM7qMuNXlpcAatpot1H5o+nK2kedIDM5TszM3F4EjNpM3dykPq4U2ZWMDnXXA+8WOy7krZNuYrcVfxaPpN61s6VpT2S6Pn7xs3o/Xh4+b7cvheFwuxtf/25uwLi23aHn8Bw==);lineShape=1;strokeColor=#00CC00;" vertex="1" parent="1">
+          <mxGeometry x="219.61" y="690" width="33.39385519403049" height="36.53878382585435" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
