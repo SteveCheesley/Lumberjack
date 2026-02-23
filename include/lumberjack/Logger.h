@@ -10,9 +10,9 @@ namespace lumberjack
     class Logger
     {
         private:
-            std::type_index source;
+            std::type_index source_;
         public:
-            constexpr explicit Logger(std::type_index source);
+            explicit Logger(std::type_index source);
             ~Logger();
 
             Logger(const Logger&) = delete;
