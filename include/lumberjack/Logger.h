@@ -12,7 +12,7 @@ namespace lumberjack
         private:
             std::type_index source;
         public:
-            constexpr Logger(std::type_index source);
+            constexpr explicit Logger(std::type_index source);
             ~Logger();
 
             Logger(const Logger&) = delete;
