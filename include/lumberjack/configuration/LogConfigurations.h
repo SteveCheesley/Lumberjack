@@ -28,7 +28,7 @@ namespace lumberjack::configuration
      */
 
     template<typename ConfigurationType>
-    LogConfigurations<ConfigurationType>::LogConfigurations(ConfigurationType defaultConfiguration) : default_(defaultConfiguration)
+    LogConfigurations<ConfigurationType>::LogConfigurations(ConfigurationType defaultConfiguration) : default_(std::move(defaultConfiguration))
     {}
 
     template<typename ConfigurationType>
