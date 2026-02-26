@@ -37,6 +37,27 @@ namespace lumberjack::configuration
                 lumberjack::LogLevel maximumLogLevel, 
                 std::unique_ptr<lumberjack::format::ILogFormatter> logFormatter,
                 std::vector<std::unique_ptr<lumberjack::writer::ILogWriter>>&& logWriters);
+
+            // Delete Copy Constructor to force pointer-safe move
+            LogConfiguration(const LogConfiguration& other) = delete;
+            LogConfiguration& operator=(const LogConfiguration& other) = delete;
+
+            // Define move operators to facilitate pointer-safe movement
+            LogConfiguration(LogConfiguration&& other) noexcept : 
+                logWriters_(std::move(other.logWriters_)), 
+                maximumLogLevel_(other.maximumLogLevel_), 
+                logFormatter_(std::move(other.logFormatter_)) {}
+            
+            LogConfiguration&& operator=(LogConfiguration&& other) noexcept
+            {
+                if (this != &other) 
+                {
+                    logWriters_ = std::move(other.logWriters_);
+                    maximumLogLevel_ = std::move(other.maximumLogLevel_); 
+                    logFormatter_ = std::move(other.logFormatter_);
+                }
+            }
+            
             void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message);
     };
 }
