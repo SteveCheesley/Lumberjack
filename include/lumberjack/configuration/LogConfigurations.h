@@ -45,7 +45,7 @@ namespace lumberjack::configuration
     template<typename ConfigurationType>
     void LogConfigurations<ConfigurationType>::log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message)
     {
-        for (ConfigurationType configuration: this->configurations_)
+        for (auto& configuration: this->configurations_)
         {
             configuration.log(source, logLevel, message);
         }
