@@ -20,12 +20,12 @@ namespace lumberjack
             Logger(Logger&&) = delete;
             auto operator=(Logger&&) -> Logger& = delete;
 
-            void log(LogLevel logLevel, std::string logMessage);
-            void info(std::string message);
-            void warn(std::string message);
-            void error(std::string message);
-            void debug(std::string message);
-            void trace(std::string message);
+            void log(LogLevel logLevel, const std::string& logMessage);
+            void info(const std::string& message);
+            void warn(const std::string& message);
+            void error(const std::string& message);
+            void debug(const std::string& message);
+            void trace(const std::string& message);
     };    
 }
 
