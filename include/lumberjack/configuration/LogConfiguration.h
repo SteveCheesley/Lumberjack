@@ -48,7 +48,7 @@ namespace lumberjack::configuration
                 maximumLogLevel_(other.maximumLogLevel_), 
                 logFormatter_(std::move(other.logFormatter_)) {}
             
-            LogConfiguration&& operator=(LogConfiguration&& other) noexcept
+            LogConfiguration& operator=(LogConfiguration&& other) noexcept
             {
                 if (this != &other) 
                 {
@@ -56,6 +56,7 @@ namespace lumberjack::configuration
                     maximumLogLevel_ = std::move(other.maximumLogLevel_); 
                     logFormatter_ = std::move(other.logFormatter_);
                 }
+                return *this;
             }
             
             void log(std::type_index source, lumberjack::LogLevel logLevel, const std::string& message);
