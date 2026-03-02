@@ -1,118 +1,22 @@
 # Lumberjack C++ Logging Library
-Idea for a name "Lumberjack" as in someone who is a logger!
 
-## Linter Configuration
-This project uses clang-tidy as a linter to ensure code quality. This project was written by someone learning C++ but who has a strong Java background. I also didn't think to use a linter from the get-go so there is technical debt in the project. To that end there are a large number of build failures and the CI build will allow the linter to fail at the moment. I will work to bring the violations down to 0. The current project rules are as follows:
+A modern C++ library for logging! The benefit is flexible, consistent log output for your application or library.
 
-1. **Clean-as-you-go** - Try to fix issues along the way
-2. **Don't introduce new violations** - As you write more code, please, no new violations. Clean them up before submitting a code review
+## Overview
+Lumberjack focuses on:
+- Flexibility in execution - Allowing for different combinations of formats and outputs for different parts of the library or application
+- High Performance - Ongoing maintenance will focus on enhancing the solution to increase the performance characteristics of the library
 
-## Unit Testing
-To execute all unit tests, simply run...
+## Status
+🚧 Active development — APIs may change.
 
+## Build (Linux)
 ```bash
-./test.sh
-```
-
-If you wish to run a single test, simply run the following
-
-```bash
-./test.sh -t <testsuite>.<testcase>
-```
-For example...
-```bash
-./test.sh -t DefaultLogFormatterTest.BasicSuccessTest
-```
-
-You can also run all tests in a specifc test suite by using a wildcard specifier...
-
-```bash
-./test.sh -t SourceMessageAppenderTest.*
-```
-
-If you want to execute procedural tests, don't forget to prefix with the data set name like this...
-
-```bash
-./test.sh -t MessageFormatCases/DefaultLogFormatterTest.*
-```
-
-### Debugging / Breakpointing Tests
-
-This project supports the ability to add breakpoints to unit tests and debug them. This makes troubleshooting issues much more straightforward. This is achieved through a combination of 
-existing build scripts and developer environment configuration.
-
-#### Step 1: Configure `launch.json` (One Time Operation)
-The first step is to configure the launch.json with profiles for executing specific tests:
-
-```{json}
-    "configurations": [
-        {
-            "name": "Debug All GoogleTests",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/build/lumberjack_tests",
-            "args": [
-                "--gtest_filter=*",
-                "--gtest_break_on_failure",
-                "--gtest_catch_exceptions=0"
-            ],
-            "cwd": "${workspaceFolder}",
-            "MIMode": "gdb",
-            "externalConsole": false
-        },
-        {
-            "name": "Debug Single GoogleTest",
-            "type": "cppdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/build/lumberjack_tests",
-            "args": [
-                "--gtest_filter=DefaultLogFormatterTest.*"
-            ],
-            "cwd": "${workspaceFolder}",
-            "MIMode": "gdb",
-            "externalConsole": false
-        }
-    ]
-```
-Be sure to add these configurations. You only really need one, depending on your requirements. I have added both for convenience.
-
-#### Step 2: Initialise build instructions and build
-Once the proper configuration is ready, now we initialise and build. We do so by specifying the "debug" option on the build initialisation.
-
-```bash
-./build_init.sh -d
-```
-Then...
-
-```bash
+./build_init.sh
 ./build.sh
 ```
 
-With the build executed successfully you are free to debug.
 
-#### Step 3: Place breakpoint and run test
-Finally, simply go to the run and debug sidebar menu and select the desired new debug profile and run. Be sure to add your desired breakpoint before you execute!
-
-# Tags
-
-1. `latest` - This tag represents the last "working" state of the project. These changes are bleeding edge, so whilst it builds and tests all pass, there may be unforseen bugs.
-
-# Notes
-A collection of development notes that I have made during work on the library
-
-## --== Example raw typeid of free functions ==--
-FNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEES4_E
-FivE
-FNSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEEP2tmS4_E
-FbvE
-
-## --== Example raw typeid of class ==--
-AbstractMessageBuilder= N10lumberjack6format22AbstractMessageBuilderE
-std::string=            NSt7__cxx1112basic_stringIcSt11char_traitsIcESaIcEEE
-std::vector<int>=       St6vectorIiSaIiEE
-SourceMessageAppender=  N10lumberjack6format21SourceMessageAppenderE
-IMessageBuilder=        N10lumberjack6format15IMessageBuilderE
-LogMessageFormat=       N10lumberjack6format16LogMessageFormatE
 
 # README Template Sections
 I left this here to make it easier to build the README as I work on this.
