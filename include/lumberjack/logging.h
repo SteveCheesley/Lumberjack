@@ -8,7 +8,7 @@ using lumberjack::configuration::LogConfigurations;
 
 namespace lumberjack
 {
-    auto logConfigurations_storage() ->  std::unique_ptr<LogConfigurations<LogConfiguration>>&
+    auto logConfigurations_storage() -> std::unique_ptr<LogConfigurations<LogConfiguration>>&
     {
         static std::unique_ptr<LogConfigurations<LogConfiguration>> logConfigurations;
         return logConfigurations;
