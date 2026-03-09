@@ -31,7 +31,7 @@ class GlobalTestEnvironment : public ::testing::Environment
             logConfigurationVector.push_back(std::move(testLogConfiguration));
 
             std::unique_ptr<lumberjack::configuration::LogConfigurations<lumberjack::configuration::LogConfiguration>> logConfigurations = 
-                std::make_unique<lumberjack::configuration::LogConfigurations<lumberjack::configuration::LogConfiguration>>(logConfigurationVector);
+                std::make_unique<lumberjack::configuration::LogConfigurations<lumberjack::configuration::LogConfiguration>>(std::move(logConfigurationVector));
 
             lumberjack::set_logConfigurations(std::move(logConfigurations));
         }
