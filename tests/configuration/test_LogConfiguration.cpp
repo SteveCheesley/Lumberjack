@@ -150,3 +150,15 @@ TEST_F(LogConfigurationTest, TestLogLevelWithinBounds) {
     validateLogFormatterInvocations(1);
     validateLogWriterInvocations(1);
 }
+
+TEST_F(LogConfigurationTest, TestLogLevelOnBounds) {
+    lumberjack::configuration::LogConfiguration subject(
+        lumberjack::LogLevel::INFO, 
+        std::move(mockLogFormatter), 
+        std::move(mockLogWriters));
+
+    subject.log(typeid(lumberjack::format::MockLogFormatter), lumberjack::LogLevel::INFO, "sample");
+
+    validateLogFormatterInvocations(1);
+    validateLogWriterInvocations(1);
+}
