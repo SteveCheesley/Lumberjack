@@ -1,4 +1,5 @@
 #include <gtest/gtest.h>
+#include <map>
 #include "lumberjack/logging.h"
 #include "lumberjack/Logger.h"
 #include "lumberjack/format/DefaultLogFormatter.h"
@@ -36,11 +37,41 @@ class LoggerTest : public ::testing::Test
 
             lumberjack::set_logConfigurations(std::move(logConfigurations));
         }
+
+        auto static getVectorOfLines(std::string &input) -> std::vector<std::string>
+        {
+            std::vector<std::string> result;
+            std::stringstream resultStream(input);
+            std::string line;
+
+            while (std::getline(resultStream, line)) {
+                result.push_back(line);
+            }
+
+            return result;
+        }
+
+        void static randomLineCheck(std::vector<std::string> input) 
+        {
+            std::map<int, std::string> expectedEntries;
+
+            expectedEntries[7] = "Request processed successfully in 27ms";
+            expectedEntries[10] = "Initiating payment for order #12345";
+
+            for (const auto& [key, value] : expectedEntries) 
+            {
+                const std::string& line = input[key];
+                const std::string& message = line.substr(line.size() - value.size());
+                EXPECT_EQ(message, value);
+            }
+        }
 };
 
 TEST_F(LoggerTest, WritesToConsole)
-{
+{   
     lumberjack::Logger subject(typeid(lumberjack::format::MockLogFormatter));
+
+    testing::internal::CaptureStdout();
 
     subject.info("Application starting...");
     subject.info("Connecting to database 'UserDB'...");
@@ -64,5 +95,11 @@ TEST_F(LoggerTest, WritesToConsole)
     subject.info("Cleanup job completed, removed 12 expired sessions");
     subject.info("Application shutting down...");
 
+    std::string result = testing::internal::GetCapturedStdout();
+    std::vector<std::string> lines = getVectorOfLines(result);
 
+    // Validate the total output volume
+    EXPECT_EQ( lines.size(), 21 );
+
+    randomLineCheck(lines);
 }
