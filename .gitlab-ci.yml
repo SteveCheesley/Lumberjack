@@ -66,3 +66,30 @@ unit-test-log-writer:
   extends: .unit_test_template
   variables:
     TEST_SUITES: StandardOutputWriterTest.*
+
+# -----------------------------------------
+# Stage 4: Integration Testing
+# -----------------------------------------
+test-compile:
+  stage: integration-test
+  script:
+    - ./build_init.sh -t
+    - ./build.sh
+  artifacts:
+    name: "compiled-code-with-tests"
+    paths:
+      - ${BUILD_DIR}/
+    expire_in: 1 hour
+
+.integration_test_template:
+  stage: integration-test
+  needs:
+    - job: test-compile
+      artifacts: true
+  script:
+    - ./test.sh -s -t ${TEST_SUITES}
+
+end-to-end-test:
+  extends: .integration_test_template
+  variables:
+    TEST_SUITES: LoggerTest.*
