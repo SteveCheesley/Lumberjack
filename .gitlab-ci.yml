@@ -3,6 +3,7 @@ stages:
   - lint
   - compile
   - unit-test
+  - integration-test
 
 variables:
   BUILD_DIR: build
@@ -70,7 +71,7 @@ unit-test-log-writer:
 # -----------------------------------------
 # Stage 4: Integration Testing
 # -----------------------------------------
-test-compile:
+integration-test-compile:
   stage: integration-test
   script:
     - ./build_init.sh -t
