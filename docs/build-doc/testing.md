@@ -78,7 +78,7 @@ Be sure to add these configurations. You only really need one, depending on your
 Once the proper configuration is ready, now we initialise and build. We do so by specifying the "debug" option on the build initialisation.
 
 ```bash
-./build_init.sh -d
+./build_init.sh -d -t
 ```
 Then...
 
