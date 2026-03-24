@@ -143,7 +143,7 @@ if(LUMBERJACK_BUILD_TESTS)
     )
 
     target_link_libraries(lumberjack_integration_tests PRIVATE
-        library
+        lumberjack
         GTest::gtest_main
         GTest::gmock_main
     )
