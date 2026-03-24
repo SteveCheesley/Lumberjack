@@ -20,6 +20,10 @@ while getopts "dtl" option; do
          echo "* Adding 'Unit Test' build instructions..."
          cmake_options="$cmake_options -DLUMBERJACK_BUILD_TESTS=ON"
          ;;
+        m)
+         echo "* Adding Memory Testing build instructions..."
+         cmake_options="$cmake_options -DLUMBERJACK_ENABLE_ASAN=ON"
+         ;;
         l)
          echo "* Adding 'Clang Tidy [linter]' build instructions..."
          cmake_options="$cmake_options -DENABLE_CLANG_TIDY=ON"

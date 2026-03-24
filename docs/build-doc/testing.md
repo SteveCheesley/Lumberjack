@@ -48,7 +48,7 @@ The first step is to configure the launch.json with profiles for executing speci
             "name": "Debug All GoogleTests",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/lumberjack_tests",
+            "program": "${workspaceFolder}/build/lumberjack_unit_tests",
             "args": [
                 "--gtest_filter=*",
                 "--gtest_break_on_failure",
@@ -62,7 +62,7 @@ The first step is to configure the launch.json with profiles for executing speci
             "name": "Debug Single GoogleTest",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/lumberjack_tests",
+            "program": "${workspaceFolder}/build/lumberjack_unit_tests",
             "args": [
                 "--gtest_filter=DefaultLogFormatterTest.*"
             ],

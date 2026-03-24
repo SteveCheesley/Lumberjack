@@ -30,11 +30,11 @@ fi
 
 # Determine the operation based on the flags provided
 if [ $l_flag -eq 1 ]; then
-    ./build/lumberjack_tests --gtest_list_tests
+    ./build/lumberjack_unit_tests --gtest_list_tests
     exit $?
 elif [ -n "$t_arg" ]; then
     echo "..:: Executing '$t_arg' ::.."
-    ./build/lumberjack_tests --gtest_filter=$t_arg
+    ./build/lumberjack_unit_tests --gtest_filter=$t_arg
     exit $?
 else
     echo "..:: Executing all tests in the suite ::.."
