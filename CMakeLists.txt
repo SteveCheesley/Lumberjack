@@ -11,6 +11,7 @@ project(lumberjack
 # ---------------------------------------------------------------
 option(LUMBERJACK_BUILD_TESTS "Build unit tests" OFF)
 option(ENABLE_CLANG_TIDY "Enable clang-tidy analysis" OFF)
+option(LUMBERJACK_ENABLE_ASAN "Enable AddressSanitizer" OFF)
 set(CMAKE_GENERATOR "Ninja")
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -30,6 +31,23 @@ if(ENABLE_CLANG_TIDY)
     else()
         message(WARNING "clang-tidy requested but not found")
     endif()
+endif()
+
+# ---------------------------------------------------------------
+#   ASan Scanner Settings
+# ---------------------------------------------------------------
+if(LUMBERJACK_ENABLE_ASAN)
+    message(STATUS "AddressSanitizer enabled")
+    
+    target_compile_options(library_integration_tests PRIVATE
+        -fsanitize=address
+        -fno-omit-frame-pointer
+        -g
+    )
+
+    target_link_options(library_integration_tests PRIVATE
+        -fsanitize=address
+    )    
 endif()
 
 # ---------------------------------------------------------------
@@ -86,27 +104,57 @@ if(LUMBERJACK_BUILD_TESTS)
     enable_testing()
 
     # ---------------------------------------------------------------
-    #   Test target definition
+    #   Test target definitions
     # ---------------------------------------------------------------
-    # Automatically gather all test .cpp files from the tests directory
-    file(GLOB_RECURSE TEST_SOURCES CONFIGURE_DEPENDS
+    # All tests
+    file(GLOB_RECURSE ALL_TEST_SOURCES CONFIGURE_DEPENDS
         tests/*.cpp
     )
 
-    add_executable(lumberjack_tests 
-        ${TEST_SOURCES}
+    # Integration tests
+    file(GLOB_RECURSE INTEGRATION_TEST_SOURCES CONFIGURE_DEPENDS
+        tests/integration/*.cpp
     )
 
-    # Link the test executable against your library and GoogleTest
-    target_link_libraries(lumberjack_tests PRIVATE
+    set(UNIT_TEST_SOURCES ${ALL_TEST_SOURCES})
+
+    foreach(integration_file ${INTEGRATION_TEST_SOURCES})
+        list(REMOVE_ITEM UNIT_TEST_SOURCES ${integration_file})
+    endforeach()
+
+    # ---------------------------------------------------------------
+    #   Executable definitions
+    # ---------------------------------------------------------------
+    # --- Unit Test Executable
+    add_executable(lumberjack_unit_tests 
+        ${UNIT_TEST_SOURCES}
+    )
+
+    # Link the test executable against this library and GoogleTest
+    target_link_libraries(lumberjack_unit_tests PRIVATE
         lumberjack
         GTest::gtest_main
         GTest::gmock_main
     )
 
+    # --- Integration Test Executable (ASan-enabled)
+    add_executable(lumberjack_integration_tests
+        ${INTEGRATION_TEST_SOURCES}
+    )
+
+    target_link_libraries(lumberjack_integration_tests PRIVATE
+        library
+        GTest::gtest_main
+        GTest::gmock_main
+    )
+    # ---------------------------------------------------------------
+
     # Register the test with CTest
-    add_test(NAME lumberjack_tests COMMAND lumberjack_tests)
+    add_test(NAME lumberjack_unit_tests COMMAND lumberjack_unit_tests)
 
     include(GoogleTest)
-    gtest_discover_tests(lumberjack_tests)
+    gtest_discover_tests(lumberjack_unit_tests)
+    if (NOT ENABLE_ASAN)
+        gtest_discover_tests(lumberjack_integration_tests)
+    endif()
 endif()
