@@ -30,6 +30,12 @@ while getopts "f:t:ls" opt; do
   esac
 done
 
+# Input Validation
+if [[ -n "$test_filter" && $test_type_set_flag -eq 0 ]]; then
+  echo "ERROR: Unable to select a test filter without specifying type (-t)"
+  exit 1;
+fi
+
 # Compile sources (both lib and test) - [unless skipped]
 if [ $build_skip -eq 0 ]; then
   echo "..:: Building resources to include latest changes ::.."
@@ -56,10 +62,6 @@ elif [[ $list_test_flag -eq 1 && $test_type_set_flag -eq 0 ]]; then
   listTestOfType "integration"
   exit $?
 elif [ -n "$test_filter" ]; then
-  if [ $test_type_set_flag -eq 0 ]; then
-    echo "ERROR: Unable to select a test filter without specifying type (-t)"
-    exit 1;
-  fi
   echo "..:: Executing with filter [$test_filter] ::.."
   eval "$test_command --gtest_filter=$test_filter"
   exit $?
