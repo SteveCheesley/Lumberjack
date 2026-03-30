@@ -2,6 +2,22 @@
 
 The lumberjack library is designed to have a comprehensive suite of tests aimed at validating functionality and performance (where appropriate).
 
+To run all tests, simply run...
+
+```bash
+./test.sh
+```
+
+## Integration Tests
+
+The project has limited integration testing to validate usage of the library end-to-end.
+
+To execute all integration tests, simply run...
+
+```bash
+./test.sh -t integration
+```
+
 ## Unit Tests
 
 The project employs unit test to validate the basic functionality of the library and contract its usage.
@@ -9,30 +25,44 @@ The project employs unit test to validate the basic functionality of the library
 To execute all unit tests, simply run...
 
 ```bash
-./test.sh
+./test.sh -t unit
 ```
 
-If you wish to run a single test, simply run the following
+## Specific Test Execution
+
+There may be times when you want to run one single test or all tests in a specific test suite. The test bash script gives us shortcuts to allow for execution of these cases too.
+
+### Run a Single Test
+
+If you wish to run a single test...
 
 ```bash
-./test.sh -t <testsuite>.<testcase>
+./test.sh -t <test-type> -f <testsuite>.<testcase>
 ```
-For example...
+
+A practical example of this could be the basic success test for the `DefaultLogFormatterTest`...
+
 ```bash
-./test.sh -t DefaultLogFormatterTest.BasicSuccessTest
+./test.sh -t unit -f DateMessageAppenderTest.testBasicSuccess
 ```
+
+### Run a Test Suite
 
 You can also run all tests in a specifc test suite by using a wildcard specifier...
 
 ```bash
-./test.sh -t SourceMessageAppenderTest.*
+./test.sh -t unit -f SourceMessageAppenderTest.*
 ```
+
+### Run Procedural Tests
 
 If you want to execute procedural tests, don't forget to prefix with the data set name like this...
 
 ```bash
-./test.sh -t MessageFormatCases/DefaultLogFormatterTest.*
+./test.sh -t unit -f MessageFormatCases/DefaultLogFormatterTest.*
 ```
+
+## VSCode
 
 ### Debugging / Breakpointing Tests
 
