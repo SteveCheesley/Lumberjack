@@ -64,7 +64,11 @@ elif [ -n "$test_filter" ]; then
   eval "$test_command --gtest_filter=$test_filter"
   exit $?
 else
-  ## TODO - Add in a nested if that will only run the suite executable that is specified in "type"
+  if [ $test_type_set_flag -eq 1 ]; then
+    echo "..:: Executing all tests of type [$test_type] in the suite ::.."
+    eval $test_command
+    exit $?
+  fi
   echo "..:: Executing all tests in the suite ::.."
   ctest --test-dir build --output-on-failure
   exit $?
