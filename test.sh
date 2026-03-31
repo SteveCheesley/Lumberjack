@@ -1,10 +1,11 @@
 #!/bin/bash
 
 setTestCommand() {
-  test_command="./build/lumberjack_${test_type}_tests"  
+  test_command="$asan_options ./build/lumberjack_${test_type}_tests"  
 }
 
 # Initialise Variables
+asan_options=""
 test_type=""
 test_type_set_flag=0
 test_filter=""
@@ -12,7 +13,7 @@ list_test_flag=0
 build_skip=0
 
 # Parse the options
-while getopts "f:t:ls" opt; do
+while getopts "t:f:lsm" opt; do
   case $opt in
     t)
       test_type=$OPTARG
@@ -26,6 +27,10 @@ while getopts "f:t:ls" opt; do
       ;;
     s)
       build_skip=1
+      ;;
+    m)
+      build_skip=1
+      asan_options="ASAN_OPTIONS=detect_leaks=1:abort_on_error=1 "
       ;;
   esac
 done
