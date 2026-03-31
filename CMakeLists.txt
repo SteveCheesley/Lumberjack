@@ -34,23 +34,6 @@ if(ENABLE_CLANG_TIDY)
 endif()
 
 # ---------------------------------------------------------------
-#   ASan Scanner Settings
-# ---------------------------------------------------------------
-if(LUMBERJACK_ENABLE_ASAN)
-    message(STATUS "AddressSanitizer enabled")
-    
-    target_compile_options(library_integration_tests PRIVATE
-        -fsanitize=address
-        -fno-omit-frame-pointer
-        -g
-    )
-
-    target_link_options(library_integration_tests PRIVATE
-        -fsanitize=address
-    )    
-endif()
-
-# ---------------------------------------------------------------
 #   Library target
 # ---------------------------------------------------------------
 # Specify the source directories to include
@@ -157,4 +140,21 @@ if(LUMBERJACK_BUILD_TESTS)
     if (NOT ENABLE_ASAN)
         gtest_discover_tests(lumberjack_integration_tests)
     endif()
+endif()
+
+# ---------------------------------------------------------------
+#   ASan Scanner Settings
+# ---------------------------------------------------------------
+if(LUMBERJACK_ENABLE_ASAN)
+    message(STATUS "AddressSanitizer enabled")
+    
+    target_compile_options(lumberjack_integration_tests PRIVATE
+        -fsanitize=address
+        -fno-omit-frame-pointer
+        -g
+    )
+
+    target_link_options(lumberjack_integration_tests PRIVATE
+        -fsanitize=address
+    )    
 endif()
