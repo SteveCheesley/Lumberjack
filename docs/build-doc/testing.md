@@ -120,3 +120,27 @@ With the build executed successfully you are free to debug.
 
 #### Step 3: Place breakpoint and run test
 Finally, simply go to the run and debug sidebar menu and select the desired new debug profile and run. Be sure to add your desired breakpoint before you execute!
+
+## Memory Leak Testing
+
+This project used AddressSanitizer to search for memory leaks and other issues that might occur within the system. My eventual aim is to add this testing to the CI. Until I get all of the discovered issues fixed, this is a test that will be executed manually.
+
+I carry out these tests against the end-to-end integration test that I have. Technically it could be run with any of the tests that are present in the system.
+
+To run the AddressSanitizer testing, simply execute the following...
+
+```bash
+./build_init.sh -m -t -d
+```
+
+Once the build is prepared, execute it...
+
+```bash
+./build.sh
+```
+
+Finally, execute the test with pre-specified memory testing options...
+
+```bash
+./test.sh -m -t integration
+```
