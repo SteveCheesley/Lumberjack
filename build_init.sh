@@ -10,7 +10,7 @@ echo "..:: Cleaning the "build/" directory... ::.."
 rm -frv build
 
 # Prepare the automated build instructions (CMake)
-while getopts "dtl" option; do
+while getopts "dtml" option; do
     case $option in
         d)
          echo "* Adding DEBUG build instructions..."
