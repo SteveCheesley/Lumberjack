@@ -2,9 +2,7 @@ name: Lumberjack C++ Build
 
 on:
   push:
-    branches: [ $default-branch ]
   pull_request:
-    branches: [ $default-branch ]
 
 env:
   BUILD_DIR: build
