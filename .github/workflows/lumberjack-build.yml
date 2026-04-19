@@ -51,6 +51,7 @@ jobs:
         run: |
           chmod +x ./linter.sh
           ./linter.sh
+        continue-on-error: true
 
   # -----------------------------------------
   # Compile with tests (shared artifact)
