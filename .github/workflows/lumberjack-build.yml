@@ -44,6 +44,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
       - name: Run linter
         run: |
           chmod +x ./linter.sh
@@ -58,6 +61,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
 
       - name: Build with tests
         run: |
@@ -110,6 +116,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
 
       - name: Build integration tests
         run: |
