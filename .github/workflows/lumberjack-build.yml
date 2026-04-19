@@ -150,6 +150,9 @@ jobs:
           name: compiled-code-with-tests
           path: ${{ env.BUILD_DIR }}/
 
+      - name: Fix permissions
+        run: chmod +x ${{ env.BUILD_DIR }}/lumberjack_integration_tests
+
       - name: Run integration tests
         run: |
           chmod +x ./test.sh
