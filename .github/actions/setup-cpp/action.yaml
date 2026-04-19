@@ -1,0 +1,15 @@
+name: Setup C++ Toolchain
+description: "Configure the base C++ toolchain so that all C++ operations can be effective."
+
+runs:
+  using: "composite"
+  steps:
+    - uses: jwlawson/actions-setup-cmake@v1
+      with:
+        cmake-version: '4.0.3'
+
+    - run: sudo apt-get update && sudo apt-get install -y ninja-build
+      shell: bash
+
+    - run: cmake --version && ninja --version
+      shell: bash

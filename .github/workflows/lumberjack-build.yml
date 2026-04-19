@@ -17,12 +17,21 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+  
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja
 
       - name: Build
-        run: |
-          chmod +x ./build_init.sh ./build.sh
-          ./build_init.sh
-          ./build.sh
+        run: cmake --build build --parallel
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build/
 
   # -----------------------------------------
   # Lint (non-blocking)
