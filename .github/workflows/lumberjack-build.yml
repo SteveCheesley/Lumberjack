@@ -1,0 +1,162 @@
+name: Lumberjack C++ Build
+
+on:
+  push:
+  pull_request:
+
+env:
+  BUILD_DIR: build
+
+jobs:
+  # -----------------------------------------
+  # Compile (basic validation)
+  # -----------------------------------------
+  cmake-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+  
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
+      - name: Configure
+        run: cmake -S . -B build -G Ninja
+
+      - name: Build
+        run: cmake --build build --parallel
+      
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-output
+          path: build/
+
+  # -----------------------------------------
+  # Lint (non-blocking)
+  # -----------------------------------------
+  clang-tidy:
+    runs-on: ubuntu-latest
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
+      - name: Run linter
+        run: |
+          chmod +x ./linter.sh
+          ./linter.sh
+        continue-on-error: true
+
+  # -----------------------------------------
+  # Compile with tests (shared artifact)
+  # -----------------------------------------
+  test-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
+      - name: Build with tests
+        run: |
+          chmod +x ./build_init.sh ./build.sh
+          ./build_init.sh -t
+          ./build.sh
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-code-with-tests
+          path: ${{ env.BUILD_DIR }}/
+
+  # -----------------------------------------
+  # Unit Tests
+  # -----------------------------------------
+  unit-tests:
+    runs-on: ubuntu-latest
+    needs: test-compile
+
+    strategy:
+      matrix:
+        suite:
+          - "LogConfigurationTest.*:LogConfigurationsTest.*"
+          - "DateMessageAppenderTest.*:LogLevelMessageAppenderTest.*:SourceMessageAppenderTest.*:TimeMessageAppenderTest.*"
+          - "MessageFormatCases/DefaultLogFormatterTest.*"
+          - "StandardOutputWriterTest.*"
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-code-with-tests
+          path: ${{ env.BUILD_DIR }}/
+
+      - name: Fix permissions
+        run: chmod +x ${{ env.BUILD_DIR }}/lumberjack_unit_tests
+
+      - name: Run unit tests
+        run: |
+          chmod +x ./test.sh
+          ./test.sh -s -t unit -f "${{ matrix.suite }}"
+
+  # -----------------------------------------
+  # Integration Test Compile
+  # -----------------------------------------
+  integration-test-compile:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Toolchain
+        uses: ./.github/actions/setup-cpp
+
+      - name: Build integration tests
+        run: |
+          chmod +x ./build_init.sh ./build.sh
+          ./build_init.sh -t
+          ./build.sh
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: compiled-code-with-tests
+          path: ${{ env.BUILD_DIR }}/
+
+  # -----------------------------------------
+  # Integration Tests
+  # -----------------------------------------
+  integration-tests:
+    runs-on: ubuntu-latest
+    needs: integration-test-compile
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: compiled-code-with-tests
+          path: ${{ env.BUILD_DIR }}/
+
+      - name: Fix permissions
+        run: chmod +x ${{ env.BUILD_DIR }}/lumberjack_integration_tests
+
+      - name: Run integration tests
+        run: |
+          chmod +x ./test.sh
+          ./test.sh -s -t integration -f "LoggerTest.*"
